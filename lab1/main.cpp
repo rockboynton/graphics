@@ -27,14 +27,13 @@ int main(int argc, char * argv[]) {
     ifstream filein(argv[1]);
     string line;
     string word;
-    double num;
     int facets = 0;
 
     // set initial min max values as large and small, respectively
     const double big = numeric_limits<double>::max();
     const double small = numeric_limits<double>::min();
-    double max[3] = {small, small, small};
-    double min[3] = {big, big, big};
+    double max[3] = {small, small, small}; // [x, y, z]
+    double min[3] = {big, big, big}; // [x, y, z]
 
     while (!filein.eof()) {
         getline(filein, line);
@@ -42,16 +41,15 @@ int main(int argc, char * argv[]) {
         sstream >> word;
         if (!word.compare("facet")) {
             cout << "facet " << facets << endl;
-
             getline(filein, line); // ignore loop declaration
-            getline(filein, line);
-
+            getline(filein, line); // get first vertex
             print_vertices(filein, max, min);
             cout << endl;
             facets++;
         }
     }
     print_summary(facets, max, min);
+    filein.close();
     return 0;
 }
 
@@ -68,24 +66,28 @@ ifstream& print_vertices(ifstream& filein, double max[], double min[]) {
     string word;
     double num;
     for (int i = 1; i <= 3; ++i) {
-       istringstream sstream(line);
-       sstream >> word; // ignore "vertex"
-       sstream >> num;
-       cout << setw(5) << "x" << i << ":" << fixed << setprecision(6) <<  num;
-       max[0] = std::max(max[0], num);
-       min[0] = std::min(min[0], num);
+        istringstream sstream(line);
+        sstream >> word; // ignore "vertex"
+        sstream >> num;
 
-       sstream >> num;
-       cout << setw(5) << "y" << i << ":" << fixed << setprecision(6) <<  num;
-       max[1] = std::max(max[1], num);
-       min[1] = std::min(min[1], num);
+        cout << fixed << setprecision(6);
+        cout << setfill(' ');
 
-       sstream >> num;
-       cout << setw(5) << "z" << i << ":" << fixed << setprecision(6) << num << endl;
-       max[2] = std::max(max[2], num);
-       min[2] = std::min(min[2], num);
+        cout << setw(5) << "x" << i << ":" << setw(10) << num;
+        max[0] = std::max(max[0], num);
+        min[0] = std::min(min[0], num);
 
-       getline(filein, line);
+        sstream >> num;
+        cout << setw(5) << "y" << i << ":" << setw(10) << num;
+        max[1] = std::max(max[1], num);
+        min[1] = std::min(min[1], num);
+
+        sstream >> num;
+        cout << setw(5) << "z" << i << ":" << setw(10) << num << endl;
+        max[2] = std::max(max[2], num);
+        min[2] = std::min(min[2], num);
+
+        getline(filein, line);
     } 
     return filein;
 }
@@ -98,17 +100,19 @@ ifstream& print_vertices(ifstream& filein, double max[], double min[]) {
  * @param min - the min x, y, and z coordinates
  */
 void print_summary(int facets, double max[], double min[]) {
-    cout << "Summary" << endl;
+    cout << setfill(' ');
+    cout << "---------------------------------------------" << endl;
+    cout << "Summary\n" << endl;
 
-    cout << "Number of Facets: " << facets << endl;
+    cout << "Number of Facets: " << facets << "\n" << endl;
 
-    cout << setw(6) << "Max" << endl;
-    cout << setw(10) << "x: " << showpos << max[0];
-    cout << setw(10) << "y: " << showpos << max[1];
-    cout << setw(10) << "z: " << showpos << max[2] << endl;
+    cout << "Max" << endl;
+    cout << setw(6) << "x:" << setw(10) << max[0];
+    cout << setw(6) << "y:" << setw(10) << max[1];
+    cout << setw(6) << "z:" << setw(10) << max[2] << endl;
 
-    cout << setw(6) << "Min" << endl;
-    cout << setw(10) <<  "x: " << showpos << min[0];
-    cout << setw(10) <<  "y: " << showpos << min[1];
-    cout << setw(10) <<  "z: " << showpos << min[2] << endl;   
+    cout << "Min" << endl;
+    cout << setw(6) <<  "x:" << setw(10) << min[0];
+    cout << setw(6) <<  "y:" << setw(10) << min[1];
+    cout << setw(6) <<  "z:" << setw(10) << min[2] << endl;   
 }
