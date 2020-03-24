@@ -3,7 +3,7 @@ CFLAGS = -c -MMD
 LFLAGS =
 SOURCES = main.cpp matrix.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
-EXCECUTABLE = matrix_test
+EXCECUTABLE = test_matrix
 
 all: $(EXCECUTABLE) $(SOURCES)
 
