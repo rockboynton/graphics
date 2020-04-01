@@ -81,7 +81,18 @@ matrix& matrix::operator=(const matrix& rhs)
 // Named constructor (static)
 matrix matrix::identity(unsigned int size)
 {
+	if (size < 1)
+	{
+		throw std::runtime_error("Named identity constructor: bad arguments");
+	}
+
 	// use p-constructor
-	return matrix(size,size);
+	matrix identity(size,size);
+	for (int i = 0; i < size; i++)
+	{
+		identity.the_matrix[size][size] = 1;
+	}
+
+	return identity;
 }
 

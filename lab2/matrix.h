@@ -47,8 +47,8 @@ class matrix
 		// overloaded operators, you can loose sight of what various
 		// combinations of arguments means.  For our design, constructor
 		// arguments set the size of the matrix.  If we want to generate
-		// "special" matrices, we are better off with statuc methods that 
-		// will generate these and then we can give the metods meaningful
+		// "special" matrices, we are better off with static methods that 
+		// will generate these and then we can give the methods meaningful
 		// names.
 		
 		// Named Constructor - produce a square identity matrix of the
