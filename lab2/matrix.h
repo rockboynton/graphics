@@ -57,8 +57,11 @@ class matrix
 		// would not make sense and should throw a runtime error.
 		//
 		static matrix identity(unsigned int size);
+
 		
 	private:
+		// Helper for copy constructor and assignment operator
+		static void copy(matrix& A, const matrix& B);
 
 		double** the_matrix;
 		unsigned int rows;

@@ -3,6 +3,20 @@
 #include <cmath>
 
 
+// Helper for copy constructor and assignment operator
+void matrix::copy(matrix& A, const matrix& B)
+{
+	for (int i = 0; i < A.rows; i++)
+	{
+		// allocate row
+		A.the_matrix[i] = new double[A.cols];
+
+		// copy row
+		std::copy(B.the_matrix[i], B.the_matrix[i]+B.cols, A.the_matrix[i]);
+	}
+}
+
+
 // Parameterized constructor
 matrix::matrix(unsigned int rows, unsigned int cols):rows(rows),cols(cols) 
 {  
@@ -28,14 +42,7 @@ matrix::matrix(const matrix& from):rows(from.rows),cols(from.cols)
 {
 	// allocate 2d array
 	this->the_matrix = new double*[this->rows];
-	for (int i = 0; i < this->rows; i++)
-	{
-		// allocate row
-		this->the_matrix[i] = new double[this->cols];
-
-		// copy row
-		std::copy(from.the_matrix[i], from.the_matrix[i]+from.cols, this->the_matrix[i]);
-	}
+	copy(*this, from);
 }
 
 // Destructor
@@ -61,14 +68,7 @@ matrix& matrix::operator=(const matrix& rhs)
 
 	// allocate 2d array
 	this->the_matrix = new double*[this->rows];
-	for (int i = 0; i < this->rows; i++)
-	{
-		// allocate row
-		this->the_matrix[i] = new double[this->cols];
-
-		// copy row
-		std::copy(rhs.the_matrix[i], rhs.the_matrix[i]+rhs.cols, this->the_matrix[i]);
-	}
+	copy(*this, rhs);
 
 	return *this;
 }
