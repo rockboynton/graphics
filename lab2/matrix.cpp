@@ -2,6 +2,7 @@
 #include <string>
 #include <cmath>
 
+// Sets array to all zeroes. Equivalent to memset in c
 static void clear_array(double* arr, const unsigned int length)
 {
 	for (int j = 0; j < length; j++)
@@ -9,6 +10,8 @@ static void clear_array(double* arr, const unsigned int length)
 		arr[j] = 0;
 	}
 }
+
+
 
 // Parameterized constructor
 matrix::matrix(unsigned int rows, unsigned int cols):rows(rows),cols(cols) 
@@ -33,7 +36,16 @@ matrix::matrix(unsigned int rows, unsigned int cols):rows(rows),cols(cols)
 // Copy constructor
 matrix::matrix(const matrix& from):rows(from.rows),cols(from.cols)
 {
-	// stub
+	// allocate 2d array
+	this->the_matrix = new double*[this->rows];
+	for (int i = 0; i < this->rows; i++)
+	{
+		// allocate row
+		this->the_matrix[i] = new double[this->cols];
+
+		// copy row
+		std::copy(from.the_matrix[i], from.the_matrix[i]+from.cols, this->the_matrix[i]);
+	}
 }
 
 // Destructor
