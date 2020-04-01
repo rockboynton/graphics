@@ -2,6 +2,14 @@
 #include <string>
 #include <cmath>
 
+static void clear_array(double* arr, const unsigned int length)
+{
+	for (int j = 0; j < length; j++)
+	{
+		arr[j] = 0;
+	}
+}
+
 // Parameterized constructor
 matrix::matrix(unsigned int rows, unsigned int cols):rows(rows),cols(cols) 
 {  
@@ -10,7 +18,20 @@ matrix::matrix(unsigned int rows, unsigned int cols):rows(rows),cols(cols)
 		throw std::runtime_error("Parameterized constructor: bad arguments");
 	}
 	
-	// more to do...
+	// allocate 2d array
+	this->the_matrix = new double*[this->rows];
+	for (int i = 0; i < this->rows; i++)
+	{
+		// allocate row
+		this->the_matrix[i] = new double[this->cols];
+
+		// clear row
+		// for (int j = 0; j < this->cols; j++)
+		// {
+		// 	this->the_matrix[i][j] = 0;
+		// }
+		clear_array(this->the_matrix[i], this->cols);
+	}
 }
 
 // Copy constructor
