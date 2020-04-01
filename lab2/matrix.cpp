@@ -19,18 +19,14 @@ matrix::matrix(unsigned int rows, unsigned int cols):rows(rows),cols(cols)
 	}
 	
 	// allocate 2d array
-	this->the_matrix = new double*[this->rows];
-	for (int i = 0; i < this->rows; i++)
+	this->the_matrix = new double*[rows];
+	for (int i = 0; i < rows; i++)
 	{
 		// allocate row
-		this->the_matrix[i] = new double[this->cols];
+		this->the_matrix[i] = new double[cols];
 
 		// clear row
-		// for (int j = 0; j < this->cols; j++)
-		// {
-		// 	this->the_matrix[i][j] = 0;
-		// }
-		clear_array(this->the_matrix[i], this->cols);
+		clear_array(this->the_matrix[i], cols);
 	}
 }
 
