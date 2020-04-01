@@ -47,7 +47,29 @@ matrix::~matrix()
 // Assignment operator
 matrix& matrix::operator=(const matrix& rhs)
 {
-	// stub
+	if (this != &rhs)
+	{
+		for (int i = 0; i < this->rows; i++)
+		{
+			delete[] this->the_matrix[i];
+		}
+		delete[] this->the_matrix;
+	}
+
+	this->rows = rhs.rows;
+	this->cols = rhs.cols;
+
+	// allocate 2d array
+	this->the_matrix = new double*[this->rows];
+	for (int i = 0; i < this->rows; i++)
+	{
+		// allocate row
+		this->the_matrix[i] = new double[this->cols];
+
+		// copy row
+		std::copy(rhs.the_matrix[i], rhs.the_matrix[i]+rhs.cols, this->the_matrix[i]);
+	}
+
 	return *this;
 }
 
