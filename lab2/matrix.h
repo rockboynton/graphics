@@ -60,7 +60,7 @@ class matrix
 		
 	private:
 
-		double* the_matrix;
+		double** the_matrix;
 		unsigned int rows;
 		unsigned int cols;
 };
