@@ -48,7 +48,12 @@ matrix::matrix(const matrix& from):rows(from.rows),cols(from.cols)
 // Destructor
 matrix::~matrix()
 {
-	// stub
+	for (int i = 0; i < this->rows; i++)
+	{
+		delete[] this->the_matrix[i];
+	}
+	delete[] this->the_matrix;
+	
 }
 
 // Assignment operator
