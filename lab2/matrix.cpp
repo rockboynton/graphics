@@ -87,12 +87,12 @@ matrix matrix::identity(unsigned int size)
 	}
 
 	// use p-constructor
-	matrix identity(size,size);
+	matrix I(size,size);
 	for (int i = 0; i < size; i++)
 	{
-		identity.the_matrix[size][size] = 1;
+		I.the_matrix[i][i] = 1;
 	}
 
-	return identity;
+	return I;
 }
 
