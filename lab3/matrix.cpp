@@ -150,7 +150,15 @@ double* matrix::operator[](unsigned int row) const
 std::ostream& operator<<(std::ostream& os, const matrix& rhs)
 {
 	// stub
-	os << "todo";
+    for (int i = 0; i < rhs.rows; i ++)
+    {
+        os << "[ ";
+        for (int j = 0; j < rhs.cols; j++)
+        {
+            os << rhs.the_matrix[i][j] << " ";
+        }
+        os << "]" << std::endl;
+    }
 	return os;
 }
 
