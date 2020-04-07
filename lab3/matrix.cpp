@@ -87,7 +87,7 @@ matrix matrix::identity(unsigned int size)
 	matrix I(size,size);
 	for (int i = 0; i < size; i++)
 	{
-		I.the_matrix[i][i] = 1;
+		I.the_matrix[i][i] = 1.0;
 	}
 
 	return I;
@@ -129,8 +129,13 @@ matrix matrix::operator~() const
 
 void matrix::clear()
 {
-	// stub
-	return;
+	for (int i = 0; i < this->rows; i ++)
+    {
+        for (int j = 0; j < this->cols; j++)
+        {
+            the_matrix[i][j] = 0.0;
+        }
+    }
 }
 
 double* matrix::operator[](unsigned int row)
