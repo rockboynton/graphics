@@ -142,6 +142,9 @@ class matrix
 
         // Helper for copy constructor and assignment operator
 		static void copy(matrix& A, const matrix& B);
+
+		//map func to matrix
+		static void transform(matrix& A, void func(double *));
 };
 
 /** Some Related Global Functions **/
@@ -161,6 +164,7 @@ std::ostream& operator<<(std::ostream& os, const matrix& rhs);
 // Scalar multiplication with a global function.  Note, this function will
 // support 5.0 * someMatrixObject, but not someMatrixObject * 5.0
 matrix operator*(const double scale, const matrix& rhs);
+
 
 
 #endif

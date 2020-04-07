@@ -21,7 +21,12 @@ int main(void)
 
 	cout << "m3 - should be 3 x 3 identity matrix" << endl;
 	cout << m3 << endl;
-	
+
+	matrix m4 = m3;
+
+	cout << "m4 - should be all zeros after clear()" << endl;
+	m4.clear();
+	cout << m4 << endl;
 	
 	
 	return 0;

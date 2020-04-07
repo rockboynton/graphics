@@ -15,6 +15,16 @@ void matrix::copy(matrix& A, const matrix& B)
 	}
 }
 
+void matrix::transform(matrix& A, void func(double *)) {
+	for (int i = 0; i < A.rows; i++)
+    {
+        for (int j = 0; j < A.cols; j++)
+        {
+            func(&(A.the_matrix[i][j]));
+        }
+    }
+}
+
 // Parameterized constructor
 matrix::matrix(unsigned int rows, unsigned int cols):rows(rows),cols(cols) 
 {  
@@ -129,13 +139,7 @@ matrix matrix::operator~() const
 
 void matrix::clear()
 {
-	for (int i = 0; i < this->rows; i ++)
-    {
-        for (int j = 0; j < this->cols; j++)
-        {
-            the_matrix[i][j] = 0.0;
-        }
-    }
+	transform(*this, [](double * val) {*val = 0.0;});
 }
 
 double* matrix::operator[](unsigned int row)
