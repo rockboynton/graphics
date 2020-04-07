@@ -24,7 +24,7 @@ class matrix
 	public:
 		// make the insertion operator a friend so it can access matrix
 		// class private variables
-		//friend std::ostream& operator<<(std::ostream& os, const matrix& rhs);
+		friend std::ostream& operator<<(std::ostream& os, const matrix& rhs);
 		
 		// No default (no argument) constructor.  It doesn't really make
 		// sense to have one as we cannot rely on a size.  This may trip
@@ -131,7 +131,7 @@ class matrix
 		// as a 1-D dynamic array, thus the double* below.  Alternatively, and
 		// perhaps preferred, you could store the data as an array of arrays
 		// which would require the_Matrix to be changed to a double**.
-		double* the_matrix;
+		double** the_matrix;
 		unsigned int rows;
 		unsigned int cols;
 
@@ -140,6 +140,8 @@ class matrix
 		// add any "helper" routine here, such as routines to support
 		// matrix inversion
 
+        // Helper for copy constructor and assignment operator
+		static void copy(matrix& A, const matrix& B);
 };
 
 /** Some Related Global Functions **/
@@ -151,18 +153,14 @@ class matrix
 //  [ r1c0, r1c1, r1c2 ]
 //  [ r0c0, r0c1, r0c2 ]]
 // would be appropriate.
-
- 
 std::ostream& operator<<(std::ostream& os, const matrix& rhs);
  
 // We would normally have a corresponding >> operator, but
 // will defer that exercise that until a later assignment.
 
-
 // Scalar multiplication with a global function.  Note, this function will
 // support 5.0 * someMatrixObject, but not someMatrixObject * 5.0
 matrix operator*(const double scale, const matrix& rhs);
-
 
 
 #endif
