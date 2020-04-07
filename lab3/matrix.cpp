@@ -2,6 +2,35 @@
 #include <string>
 #include <cmath>
 
+
+mrow::mrow(unsigned int len, double* matrix_row):len(len),matrix_row(matrix_row)
+{
+	
+}
+
+double& mrow::operator[](unsigned int col)
+{
+	if (col >= this->len)
+	{
+		throw std::runtime_error("col index too large");
+	} 
+
+	return this->matrix_row[col];
+}
+
+
+double mrow::operator[](unsigned int col) const 
+{
+	if (col >= this->len)
+	{
+		throw std::runtime_error("col index too large");
+	} 
+
+	return this->matrix_row[col];
+}
+
+
+// ---------------------------- Helper Functions ------------------------------
 // Helper for copy constructor and assignment operator
 void matrix::copy(matrix& A, const matrix& B)
 {
@@ -24,6 +53,7 @@ void matrix::transform(matrix& A, void func(double *)) {
         }
     }
 }
+//-----------------------------------------------------------------------------
 
 // Parameterized constructor
 matrix::matrix(unsigned int rows, unsigned int cols):rows(rows),cols(cols) 
@@ -142,16 +172,27 @@ void matrix::clear()
 	transform(*this, [](double * val) {*val = 0.0;});
 }
 
-double* matrix::operator[](unsigned int row)
+mrow matrix::operator[](unsigned int row)
 {
 	// stub
-	return NULL;
+	if (row >= this->rows)
+	{
+		throw std::runtime_error("row index too large");
+	} 
+
+	mrow mr(this->rows, this->the_matrix[row]);
+	return mr;
 }
 
-double* matrix::operator[](unsigned int row) const
+mrow matrix::operator[](unsigned int row) const
 {
-	// stub
-	return NULL;
+	if (row >= this->rows)
+	{
+		throw std::runtime_error("row index too large");
+	} 
+
+	mrow mr(this->rows, this->the_matrix[row]);
+	return mr;
 }
 
 

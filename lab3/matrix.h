@@ -17,6 +17,21 @@
 #include <iostream> // for std::ostream
 #include <stdexcept>	// for std::runtime_error
 #include <string>	// used in exception
+
+
+class mrow
+{
+	// wrapper to prevent accessing out of bounds 
+	public:
+		mrow(unsigned int len, double* matrix_row);
+
+		double& operator[](unsigned int col);
+		double operator[](unsigned int col) const;
+
+	private:
+		unsigned int len;
+		double* matrix_row;
+};
  
 
 class matrix
@@ -113,14 +128,14 @@ class matrix
 		//
 		// throw (matrixException)
 		//
-		double* operator[](unsigned int row);
+		mrow operator[](unsigned int row);
  
 		// const version of above - throws an exception if indices are out of
 		// range
 		//
 		// throw (matrixException)
 		//
-		double* operator[](unsigned int row) const;
+		mrow operator[](unsigned int row) const;
  
 		// I/O - for convenience - this is intended to be called by the global
 		// << operator declared below.
