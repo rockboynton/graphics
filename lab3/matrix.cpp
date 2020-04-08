@@ -113,14 +113,15 @@ matrix& matrix::operator=(const matrix& rhs)
 			delete[] this->the_matrix[i];
 		}
 		delete[] this->the_matrix;
+		
+		this->rows = rhs.rows;
+		this->cols = rhs.cols;
+
+		// allocate 2d array
+		this->the_matrix = new double*[this->rows];
+		copy(*this, rhs);
 	}
 
-	this->rows = rhs.rows;
-	this->cols = rhs.cols;
-
-	// allocate 2d array
-	this->the_matrix = new double*[this->rows];
-	copy(*this, rhs);
 
 	return *this;
 }

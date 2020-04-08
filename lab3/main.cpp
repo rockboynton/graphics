@@ -69,5 +69,7 @@ int main(void)
 	cout << "m10 - should be result of m8 * m9 after matrix mult" << endl;
 	matrix m10 = m8 * m9;
 	cout << m10 << endl;
+
+	m10 = m10;
 	return 0;
 }		
