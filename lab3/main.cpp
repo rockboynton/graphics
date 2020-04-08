@@ -39,7 +39,22 @@ int main(void)
 	cout << "m7 - should be 5 on diagonal after matrix mult" << endl;
 	matrix m7 = m2 * 5.0;
 	cout << m7 << endl;
-	
+
+	matrix m8(4, 2);
+	int count = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 2; j++)
+		{
+			m8[i][j] = ++count;
+		}
+	}
+
+	cout << "m8 - before transpose" << endl;
+	cout << m8 << endl;
+	cout << "m9 - transposed m8" << endl;
+	matrix m9 = ~m8;
+	cout << m9 << endl;
 	
 	return 0;
 }		

@@ -144,7 +144,7 @@ matrix matrix::identity(unsigned int size)
 }
 
 
-// Binary operations
+// ---------------------------- Binary operations -----------------------------
 matrix matrix::operator+(const matrix& rhs) const
 {
 	if (this->rows != rhs.rows || this->cols != rhs.cols)
@@ -172,13 +172,21 @@ matrix matrix::operator*(const double scale) const
 	matrix::transform(retVal, [scale](double * val) {*val *= scale;});
 	return retVal;
 }
+// ----------------------------------------------------------------------------
 
 
-// Unary operations
+// --------------------------- Unary operations -------------------------------
 matrix matrix::operator~() const
 {
-	// stub
-	matrix retVal(*this);
+	matrix retVal(this->cols, this->rows);
+	for (int i = 0; i < this->rows; i++)
+	{
+		for (int j = 0; j < this->cols; j++)
+		{
+			retVal[j][i] = (*this)[i][j];
+		}
+	}
+	
 	return retVal;
 }
 	
@@ -197,7 +205,7 @@ mrow matrix::operator[](unsigned int row)
 		throw std::runtime_error("row index too large");
 	} 
 
-	mrow mr(this->rows, this->the_matrix[row]);
+	mrow mr(this->cols, this->the_matrix[row]);
 	return mr;
 }
 
@@ -208,9 +216,10 @@ mrow matrix::operator[](unsigned int row) const
 		throw std::runtime_error("row index too large");
 	} 
 
-	mrow mr(this->rows, this->the_matrix[row]);
+	mrow mr(this->cols, this->the_matrix[row]);
 	return mr;
 }
+// ----------------------------------------------------------------------------
 
 
 // Global insertion and operator
