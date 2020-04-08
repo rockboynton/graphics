@@ -143,6 +143,7 @@ class matrix
 		// << operator declared below.
 		std::ostream& out(std::ostream& os) const;
 		static void transform(matrix& A, const std::function<void(double*)>& func);
+		static void transform(const matrix& A, matrix& B, const std::function<void(double*, double*)>& func);
 		
 	private:
 		// The data - note, per discussion on arrays, you can store these data

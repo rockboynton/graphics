@@ -51,6 +51,18 @@ void matrix::transform(matrix& A, const std::function<void(double*)>& func) {
         }
     }
 }
+
+
+void matrix::transform(const matrix& A, matrix& B, const std::function<void(double*, double*)>& func)
+{
+	for (int i = 0; i < A.rows; i++)
+    {
+        for (int j = 0; j < A.cols; j++)
+        {
+            func(&(A.the_matrix[i][j]), &(B.the_matrix[i][j]));
+        }
+    }
+}
 //-----------------------------------------------------------------------------
 
 // Parameterized constructor
