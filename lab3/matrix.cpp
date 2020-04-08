@@ -160,8 +160,22 @@ matrix matrix::operator+(const matrix& rhs) const
 // matrix multiplication
 matrix matrix::operator*(const matrix& rhs) const
 {
-	// stub
-	matrix retVal(rhs);
+	if (this->cols != rhs.rows)
+	{
+		throw std::runtime_error("Matrices must have the same inner dimensions");
+	}
+	matrix retVal(this->rows, rhs.cols);
+	for (int i = 0; i < this->rows; i++)
+	{
+		for (int j = 0; j < rhs.cols; j++)
+		{
+			for (int k = 0; k < rhs.rows; k++)
+			{
+				retVal[i][j] = retVal[i][j] + (*this)[i][k] * rhs[k][j];
+			}	
+		}
+	}
+	
 	return retVal;
 }
 
@@ -199,7 +213,6 @@ void matrix::clear()
 
 mrow matrix::operator[](unsigned int row)
 {
-	// stub
 	if (row >= this->rows)
 	{
 		throw std::runtime_error("row index too large");
@@ -225,7 +238,6 @@ mrow matrix::operator[](unsigned int row) const
 // Global insertion and operator
 std::ostream& operator<<(std::ostream& os, const matrix& rhs)
 {
-	// stub
     for (int i = 0; i < rhs.rows; i ++)
     {
         os << "[ ";
@@ -241,7 +253,6 @@ std::ostream& operator<<(std::ostream& os, const matrix& rhs)
 // Global scalar multiplication
 matrix operator*(const double scale, const matrix& rhs)
 {
-	// stub
 	matrix retval(rhs);
 	matrix::transform(retval, [scale](double * val) {*val *= scale;});
 	return retval;

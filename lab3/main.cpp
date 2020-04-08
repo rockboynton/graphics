@@ -55,6 +55,19 @@ int main(void)
 	cout << "m9 - transposed m8" << endl;
 	matrix m9 = ~m8;
 	cout << m9 << endl;
+
+	//test accessor -- attributes need to be made public
+	// for (int i = 0; i < m9.rows; i++)
+	// {
+	// 	for (int j = 0; j < m9.cols; j++)
+	// 	{
+	// 		cout << "accessing m9[" << i << "][" << j << "]: " <<  m9[i][j] << endl;
+	// 	}
+	// }
 	
+	
+	cout << "m10 - should be result of m8 * m9 after matrix mult" << endl;
+	matrix m10 = m8 * m9;
+	cout << m10 << endl;
 	return 0;
 }		
