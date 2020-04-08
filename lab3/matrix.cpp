@@ -1,12 +1,10 @@
 #include "matrix.h"
 #include <string>
 #include <cmath>
+#include <functional>
 
 
-mrow::mrow(unsigned int len, double* matrix_row):len(len),matrix_row(matrix_row)
-{
-	
-}
+mrow::mrow(unsigned int len, double* matrix_row):len(len),matrix_row(matrix_row){}
 
 double& mrow::operator[](unsigned int col)
 {
@@ -44,7 +42,7 @@ void matrix::copy(matrix& A, const matrix& B)
 	}
 }
 
-void matrix::transform(matrix& A, void func(double *)) {
+void matrix::transform(matrix& A, const std::function<void(double*)>& func) {
 	for (int i = 0; i < A.rows; i++)
     {
         for (int j = 0; j < A.cols; j++)
@@ -142,7 +140,7 @@ matrix matrix::operator+(const matrix& rhs) const
 	return retVal;
 }
 
-
+// matrix multiplication
 matrix matrix::operator*(const matrix& rhs) const
 {
 	// stub
@@ -150,6 +148,7 @@ matrix matrix::operator*(const matrix& rhs) const
 	return retVal;
 }
 
+// Scalar multiplication
 matrix matrix::operator*(const double scale) const
 {
 	// stub
@@ -169,7 +168,8 @@ matrix matrix::operator~() const
 
 void matrix::clear()
 {
-	transform(*this, [](double * val) {*val = 0.0;});
+	double num = 0.0;
+	transform(*this, [num] (double * val) {*val = num;});
 }
 
 mrow matrix::operator[](unsigned int row)
@@ -217,6 +217,7 @@ matrix operator*(const double scale, const matrix& rhs)
 {
 	// stub
 	matrix retval(rhs);
+	matrix::transform(retval, [scale](double * val) {*val *= scale;});
 	return retval;
 }
 

@@ -17,7 +17,7 @@
 #include <iostream> // for std::ostream
 #include <stdexcept>	// for std::runtime_error
 #include <string>	// used in exception
-
+#include <functional>
 
 class mrow
 {
@@ -39,7 +39,9 @@ class matrix
 	public:
 		// make the insertion operator a friend so it can access matrix
 		// class private variables
+		
 		friend std::ostream& operator<<(std::ostream& os, const matrix& rhs);
+		
 		
 		// No default (no argument) constructor.  It doesn't really make
 		// sense to have one as we cannot rely on a size.  This may trip
@@ -140,6 +142,7 @@ class matrix
 		// I/O - for convenience - this is intended to be called by the global
 		// << operator declared below.
 		std::ostream& out(std::ostream& os) const;
+		static void transform(matrix& A, const std::function<void(double*)>& func);
 		
 	private:
 		// The data - note, per discussion on arrays, you can store these data
@@ -159,7 +162,6 @@ class matrix
 		static void copy(matrix& A, const matrix& B);
 
 		//map func to matrix
-		static void transform(matrix& A, void func(double *));
 };
 
 /** Some Related Global Functions **/

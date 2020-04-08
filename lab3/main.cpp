@@ -27,6 +27,10 @@ int main(void)
 	cout << "m4 - should be all zeros after clear()" << endl;
 	m4.clear();
 	cout << m4 << endl;
+
+	cout << "m5 - should be 5 on diagonal after global mult" << endl;
+	matrix m5 = 5.0 * m2;
+	cout << m5 << endl;
 	
 	
 	return 0;
