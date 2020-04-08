@@ -147,8 +147,13 @@ matrix matrix::identity(unsigned int size)
 // Binary operations
 matrix matrix::operator+(const matrix& rhs) const
 {
-	// stub
+	if (this->rows != rhs.rows || this->cols != rhs.cols)
+	{
+		throw std::runtime_error("Matrices must have the same dimensions");
+	}
+
 	matrix retVal(rhs);
+	transform(*this, retVal, [](double* A_val, double* B_val) {*B_val += *A_val;});
 	return retVal;
 }
 
@@ -163,8 +168,8 @@ matrix matrix::operator*(const matrix& rhs) const
 // Scalar multiplication
 matrix matrix::operator*(const double scale) const
 {
-	// stub
 	matrix retVal(*this);
+	matrix::transform(retVal, [scale](double * val) {*val *= scale;});
 	return retVal;
 }
 

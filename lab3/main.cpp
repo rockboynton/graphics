@@ -31,6 +31,14 @@ int main(void)
 	cout << "m5 - should be 5 on diagonal after global mult" << endl;
 	matrix m5 = 5.0 * m2;
 	cout << m5 << endl;
+
+	cout << "m6 - should be 10 on diagonal after matrix add" << endl;
+	matrix m6 = m5 + m5;
+	cout << m6 << endl;
+
+	cout << "m7 - should be 5 on diagonal after matrix mult" << endl;
+	matrix m7 = m2 * 5.0;
+	cout << m7 << endl;
 	
 	
 	return 0;
