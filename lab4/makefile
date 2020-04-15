@@ -1,14 +1,14 @@
 CC = g++
 CFLAGS = -c -MMD
-LFLAGS =
-SOURCES = main.cpp matrix.cpp
+LFLAGS = -lX11
+SOURCES = x11context.cpp gcontext.cpp main.cpp 
 OBJECTS = $(SOURCES:.cpp=.o)
-EXCECUTABLE = test_matrix
+EXCECUTABLE = main
 
 all: $(EXCECUTABLE) $(SOURCES)
 
 $(EXCECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) -o $@ $(OBJECTS)
+	$(CC) $(LFLAGS) -o $@ $(OBJECTS)
 
 -include *.d
 
