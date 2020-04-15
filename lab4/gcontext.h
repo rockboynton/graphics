@@ -144,6 +144,9 @@ class GraphicsContext
 		// this flag is used to control whether the event loop
 		// continues to run.
 		bool run;
+
+	private:
+		void bresenham(int x0, int y0, int x1, int y1, bool reversed);
 };
 
 #endif

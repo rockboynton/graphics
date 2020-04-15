@@ -15,6 +15,22 @@ GraphicsContext::~GraphicsContext()
 	// here to insure subclasses handle destruction properly
 }
 
+void GraphicsContext::bresenham(int x0, int y0, int x1, int y1, bool reversed)
+{
+	// find slope
+	int dx = x1-x0;
+	int dy = y1-y0;
+
+	double slope = (double)dy/dx;
+			
+	// x increment - need to know which way to go
+	int incx = dx >= 0 ? 1 : -1;  // will be 1 or -1
+	
+	for (int x = x0; x != x1; x += incx)
+	{
+		reversed ? setPixel(y0+slope*(x-x0),x) : setPixel(x,y0+slope*(x-x0));
+	}
+}
 
 /* This is a naive implementation that uses floating-point math
  * and "setPixel" which will need to be provided by the concrete
@@ -39,34 +55,14 @@ void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
 		// slope < 1?
 		if (std::abs(dx)>std::abs(dy))
 		{	// iterate over x
-			double slope = (double)dy/dx;
-			
-			// x increment - need to know which way to go
-			int incx = std::abs(dx)/dx;  // will be 1 or -1
-			
-			for (int x = x0; x != x1; x += incx)
-			{
-				setPixel(x,y0+slope*(x-x0));
-			}
-			
-			// loop ends on iteration early - catch endpoint
-			setPixel(x1,y1);
+			bresenham(x0, x1, y0, y1, false);
 		} // end of if |slope| < 1 
 		else 
 		{	// iterate over y
-			double slope = (double)dx/dy;
-			
-			// x increment - need to know which way to go
-			int incy = std::abs(dy)/dy;  // will be 1 or -1
-			
-			for (int y = y0; y != y1; y += incy)
-			{
-				setPixel(x0+slope*(y-y0),y);
-			}
-			
-			// loop ends on iteration early - catch endpoint
-			setPixel(x1,y1);
+			bresenham(x0, x1, y0, y1, true);	
 		} // end of else |slope| >= 1
+		// loop ends on iteration early - catch endpoint
+		setPixel(x1,y1);
 	} // end of if it is a real line (dx!=0 || dy !=0)
 	return;
 }
