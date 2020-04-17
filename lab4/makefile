@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -c -MMD
+CFLAGS = -c -MMD -Wall
 LFLAGS = -lX11
 SOURCES = x11context.cpp gcontext.cpp main.cpp 
 OBJECTS = $(SOURCES:.cpp=.o)
