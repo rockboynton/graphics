@@ -16,6 +16,25 @@ GraphicsContext::~GraphicsContext()
 	// here to insure subclasses handle destruction properly
 }
 
+void GraphicsContext::resolveSlope(int& delta, int& step)
+{
+	if (delta < 0) 
+	{ 
+		delta = -delta; 
+		step = -1; 
+	} 
+	else 
+	{ 
+		step = 1; 
+	}
+}
+
+void GraphicsContext::resolveSlope(int& dx, int& dy, int& stepx, int& stepy)
+{
+	resolveSlope(dy, stepy);
+    resolveSlope(dx, stepx);
+}
+
 /* This is a naive implementation that uses floating-point math
  * and "setPixel" which will need to be provided by the concrete
  * implementation.
@@ -34,54 +53,37 @@ void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
     dx = x1 - x0;
     dy = y1 - y0;
 
-    if (dy < 0) 
-	{ 
-		dy = -dy; 
-		stepy = -1; 
-	} 
-	else 
-	{ 
-		stepy = 1; 
-	}
+    resolveSlope(dx, dy, stepx, stepy);
 
-    if (dx < 0) 
-	{ 
-		dx = -dx; 
-		stepx = -1; 
-	} 
-	else 
-	{ 
-		stepx = 1; 
-	}
-
-    dy <<= 1; /* dy is now 2*dy */
-    dx <<= 1; /* dx is now 2*dx */
+    dy <<= 1; // dy is now 2*dy 
+    dx <<= 1; // dx is now 2*dx
     
     setPixel(x0, y0);
     
     if (dx > dy) {
-        int fraction = dy - (dx >> 1);
+        int decision = dy - (dx >> 1);
         while (x0 != x1) {
-            x0 += stepx;
-            if (fraction >= 0) {
+            if (decision >= 0) {
                 y0 += stepy;
-                fraction -= dx;
+                decision -= dx;
             }
-            fraction += dy;
+            x0 += stepx;
+            decision += dy;
             setPixel(x0, y0);
         }
     } else {
-        int fraction = dx - (dy >> 1);
+        int decision = dx - (dy >> 1);
         while (y0 != y1) {
-            if (fraction >= 0) {
+            if (decision >= 0) {
                 x0 += stepx;
-                fraction -= dy;
+                decision -= dy;
             }
             y0 += stepy;
-            fraction += dx;
+            decision += dx;
             setPixel(x0, y0);
         }
     }
+	setPixel(x1, y1);
 }
 
 

@@ -144,6 +144,10 @@ class GraphicsContext
 		// this flag is used to control whether the event loop
 		// continues to run.
 		bool run;
+
+	private:
+		void resolveSlope(int& dx, int& dy, int& stepx, int& stepy);
+		void resolveSlope(int& delta, int& step);
 };
 
 #endif
