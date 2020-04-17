@@ -146,7 +146,7 @@ class GraphicsContext
 		bool run;
 
 	private:
-		void bresenham(int x0, int y0, int x1, int y1);
+		void bresenham(int x0, int y0, int x1, int y1, int dx, int dy, bool reversed);
 };
 
 #endif

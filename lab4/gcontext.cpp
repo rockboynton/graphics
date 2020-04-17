@@ -5,6 +5,7 @@
 #define _USE_MATH_DEFINES	// for M_PI
 #include <cmath>	// for trig functions
 #include "gcontext.h"	
+#include <iostream>
 
 /*
  * Destructor - does nothing
@@ -15,20 +16,15 @@ GraphicsContext::~GraphicsContext()
 	// here to insure subclasses handle destruction properly
 }
 
-void GraphicsContext::bresenham(int x0, int y0, int x1, int y1)
+void GraphicsContext::bresenham(int x0, int y0, int x1, int y1, int dx, int dy, bool reversed)
 {
-	// find slope
-	int dx = x1-x0;
-	int dy = y1-y0;
-
 	double slope = (double)dy/dx;
-			
 	// x increment - need to know which way to go
-	int incx = dx >= 0 ? 1 : -1;  // will be 1 or -1
+	int incx = std::abs(dx)/dx;  // will be 1 or -1
 	
 	for (int x = x0; x != x1; x += incx)
 	{
-		setPixel(x,y0+slope*(x-x0));
+		reversed ? setPixel(y0+slope*(x-x0),x) : setPixel(x,y0+slope*(x-x0));
 	}
 }
 
@@ -55,11 +51,11 @@ void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
 		// slope < 1?
 		if (std::abs(dx)>std::abs(dy))
 		{	// iterate over x
-			bresenham(x0, y0, x1, y1);
+			bresenham(x0, y0, x1, y1, dx, dy, false);
 		} // end of if |slope| < 1 
 		else 
 		{	// iterate over y
-			bresenham(x1, y1, x0, y0);	
+			bresenham(y0, x0,y1, x1, dy, dx, true);	
 		} // end of else |slope| >= 1
 		// loop ends on iteration early - catch endpoint
 		setPixel(x1,y1);
