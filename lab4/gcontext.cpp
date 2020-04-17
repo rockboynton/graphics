@@ -15,7 +15,7 @@ GraphicsContext::~GraphicsContext()
 	// here to insure subclasses handle destruction properly
 }
 
-void GraphicsContext::bresenham(int x0, int y0, int x1, int y1, bool reversed)
+void GraphicsContext::bresenham(int x0, int y0, int x1, int y1)
 {
 	// find slope
 	int dx = x1-x0;
@@ -28,7 +28,7 @@ void GraphicsContext::bresenham(int x0, int y0, int x1, int y1, bool reversed)
 	
 	for (int x = x0; x != x1; x += incx)
 	{
-		reversed ? setPixel(y0+slope*(x-x0),x) : setPixel(x,y0+slope*(x-x0));
+		setPixel(x,y0+slope*(x-x0));
 	}
 }
 
@@ -55,11 +55,11 @@ void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
 		// slope < 1?
 		if (std::abs(dx)>std::abs(dy))
 		{	// iterate over x
-			bresenham(x0, x1, y0, y1, false);
+			bresenham(x0, y0, x1, y1);
 		} // end of if |slope| < 1 
 		else 
 		{	// iterate over y
-			bresenham(x0, x1, y0, y1, true);	
+			bresenham(x1, y1, x0, y0);	
 		} // end of else |slope| >= 1
 		// loop ends on iteration early - catch endpoint
 		setPixel(x1,y1);
