@@ -10,13 +10,13 @@ int main(void)
 	// gc->drawLine(100,100,500,200);
 	// gc->setColor(GraphicsContext::RED);
 	// gc->drawLine(100,100,200,800);
-	// // gc->setColor(GraphicsContext::BLUE);
-	// // gc->drawLine(500,500,500,100);
+	// gc->setColor(GraphicsContext::BLUE);
+	// gc->drawLine(100,500,500,200);
 	// // gc->setColor(GraphicsContext::YELLOW);
 	// // gc->drawLine(500,100,100,100);
 	// // gc->setColor(GraphicsContext::MAGENTA);
 	// // gc->drawCircle(300,300,200);
-	// // sleep(5);
+	// sleep(5);
  
 	// draw some lines
 	gc->setColor(GraphicsContext::GREEN);

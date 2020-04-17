@@ -16,25 +16,6 @@ GraphicsContext::~GraphicsContext()
 	// here to insure subclasses handle destruction properly
 }
 
-void GraphicsContext::bresenham(int x0, int y0, int x1, int y1, int dx, int dy, bool reversed)
-{
-	int incx = std::abs(dx)/dx;  // will be 1 or -1
-	int d = 2 * dy - dx;
-	for (int x = x0, y = y0; x != x1; x += incx)
-	{
-		if (d < 0)
-		{
-			reversed ? setPixel(y, x) : setPixel(x, y);
-			d += 2 * dy;
-		}
-		else
-		{
-			reversed ? setPixel(++y, x) : setPixel(x, ++y);
-			d += (2 * dy) - (2 * dx);
-		}
-	}
-}
-
 /* This is a naive implementation that uses floating-point math
  * and "setPixel" which will need to be provided by the concrete
  * implementation.
@@ -47,26 +28,60 @@ void GraphicsContext::bresenham(int x0, int y0, int x1, int y1, int dx, int dy, 
  */
 void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
 {
-	// find slope
-	int dx = x1-x0;
-	int dy = y1-y0;
-	
-	// make sure we actually have a line
-	if (dx != 0 || dy !=0)
-	{
-		// slope < 1?
-		if (std::abs(dx)>std::abs(dy))
-		{ // iterate over x
-			bresenham(x0, y0, x1, y1, dx, dy, false);
-		} // end of if |slope| < 1 
-		else 
-		{ // iterate over y
-			bresenham(y0, x0,y1, x1, dy, dx, true);	
-		} // end of else |slope| >= 1
-		// loop ends on iteration early - catch endpoint
-		setPixel(x1,y1);
-	} // end of if it is a real line (dx!=0 || dy !=0)
-	return;
+	int dx, dy;
+    int stepx, stepy;
+
+    dx = x1 - x0;
+    dy = y1 - y0;
+
+    if (dy < 0) 
+	{ 
+		dy = -dy; 
+		stepy = -1; 
+	} 
+	else 
+	{ 
+		stepy = 1; 
+	}
+
+    if (dx < 0) 
+	{ 
+		dx = -dx; 
+		stepx = -1; 
+	} 
+	else 
+	{ 
+		stepx = 1; 
+	}
+
+    dy <<= 1; /* dy is now 2*dy */
+    dx <<= 1; /* dx is now 2*dx */
+    
+    setPixel(x0, y0);
+    
+    if (dx > dy) {
+        int fraction = dy - (dx >> 1);
+        while (x0 != x1) {
+            x0 += stepx;
+            if (fraction >= 0) {
+                y0 += stepy;
+                fraction -= dx;
+            }
+            fraction += dy;
+            setPixel(x0, y0);
+        }
+    } else {
+        int fraction = dx - (dy >> 1);
+        while (y0 != y1) {
+            if (fraction >= 0) {
+                x0 += stepx;
+                fraction -= dy;
+            }
+            y0 += stepy;
+            fraction += dx;
+            setPixel(x0, y0);
+        }
+    }
 }
 
 
