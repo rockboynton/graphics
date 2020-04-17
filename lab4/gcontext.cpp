@@ -111,6 +111,13 @@ void GraphicsContext::setCirclePoints(int x0, int y0, int x, int y)
 	setPixel(x0 + x, y0 - y);
 }
 
+/**
+ * @brief Draws a circle using a midpoint circle algorithm
+ * 
+ * @param x0 - center x
+ * @param y0 - center y
+ * @param radius - radius of the circle
+ */
 void GraphicsContext::midpointCircle(int x0, int y0, unsigned int radius) 
 {
 	int x = radius;
