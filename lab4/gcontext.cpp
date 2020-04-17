@@ -70,10 +70,11 @@ void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
     dy <<= 1; // dy is now 2*dy 
     dx <<= 1; // dx is now 2*dx
     
-    if (dx > dy) { // slope < 1?
-		// iterate over x
+    if (dx > dy) // slope < 1?
+	{ // iterate over x
         int decision = dy - (dx >> 1);
-        for (int x = x0, y = y0; x != x1; x += stepx) {
+        for (int x = x0, y = y0; x != x1; x += stepx) 
+		{
 			setPixel(x, y);
             if (decision >= 0) {
                 y += stepy;
@@ -81,10 +82,12 @@ void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
             }
             decision += dy;
         }
-    } else { 
-		// iterate over y
+    } 
+	else 
+	{ // iterate over y
         int decision = dx - (dy >> 1);
-        for (int y = y0, x = x0; y != y1; y += stepy) {
+        for (int y = y0, x = x0; y != y1; y += stepy) 
+		{
 			setPixel(x, y);
             if (decision >= 0) {
                 x += stepx;
@@ -96,44 +99,64 @@ void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
 	setPixel(x1, y1); // set endpoint
 }
 
+void GraphicsContext::setCirclePoints(int x0, int y0, int x, int y)
+{
+	setPixel(x0 + x, y0 + y);
+	setPixel(x0 + y, y0 + x);
+	setPixel(x0 - y, y0 + x);
+	setPixel(x0 - x, y0 + y);
+	setPixel(x0 - x, y0 - y);
+	setPixel(x0 - y, y0 - x);
+	setPixel(x0 + y, y0 - x);
+	setPixel(x0 + x, y0 - y);
+}
 
+void GraphicsContext::midpointCircle(int x0, int y0, unsigned int radius) 
+{
+	int x = radius;
+    int y = 0;
+    int err = 1 - radius;
+ 
+    while (x >= y)
+    {
+		setCirclePoints(x0, y0, x, y);
+	
+		if (err <= 0)
+		{
+			y += 1;
+			err += 2*y + 1;
+		}
+	
+		if (err > 0)
+		{
+			x -= 1;
+			err -= 2*x + 1;
+		}
+    }
+}
 
-/* This is a naive implementation that uses floating-point math
- * and "setPixel" which will need to be provided by the concrete
- * implementation.
+/**
+ * @brief Draws a circle using a modified bresenham line algorithm for circles
  * 
- * Parameters:
- * 	x0, y0 - origin/center of circle
- *  radius - radius of circle
- * 
- * Returns: void
+ * @param x0 - center x
+ * @param y0 - center y
+ * @param radius - radius of the circle
  */
 void GraphicsContext::drawCircle(int x0, int y0, unsigned int radius)
 {
-	// This is a naive implementation that draws many line
-	// segments.  Also uses floating point math for poor performance
-
-	// also, large circles will be "jagged"
-	
-	// start at 0 degrees
-	int oldx = radius;
-	int oldy = 0;
-
-	// go from 1 to 360 degrees
-	for (int segment =1; segment<=360; segment += 1)
+	for (int x = 0, y = radius, decision = 1 - radius; y >= x; x++)
 	{
-		int newx = std::cos(segment*M_PI/180)*radius;
-		int newy = std::sin(segment*M_PI/180)*radius;
-
-		// hit four quadrants
-		drawLine(x0+oldx,y0+oldy,x0+newx,y0+newy);
-		
-		oldx = newx;
-		oldy = newy;
-		
+		setCirclePoints(x0, y0, x, y);
+		if (decision > 0)
+		{
+			y--;
+			decision += 2 * x - 2 * y + 5;
+		}
+		else
+		{
+			decision += 2 * x + 3;
+		}		
 	}
-	
-	return;	
 }
 
 void GraphicsContext::endLoop()

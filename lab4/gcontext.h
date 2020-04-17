@@ -148,6 +148,8 @@ class GraphicsContext
 	private:
 		void resolveSlope(int& dx, int& dy, int& stepx, int& stepy);
 		void resolveSlope(int& delta, int& step);
+		void midpointCircle(int x0, int y0, unsigned int radius);
+		void setCirclePoints(int x0, int y0, int x, int y);
 };
 
 #endif
