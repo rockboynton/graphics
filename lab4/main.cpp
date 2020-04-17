@@ -29,6 +29,16 @@ int main(void)
 	gc->drawLine(500,500,500,100);
 	gc->setColor(GraphicsContext::YELLOW);
 	gc->drawLine(500,100,100,100);
+
+	gc->setColor(GraphicsContext::CYAN);
+	gc->drawLine(400,100, 100,500);
+
+	gc->setColor(GraphicsContext::GRAY);
+	gc->drawLine(400,500, 100,100);
+
+	// gc->setColor(GraphicsContext::WHITE);
+	// gc->drawLine(500,100,100,100);
+
 	gc->setColor(GraphicsContext::MAGENTA);
 	gc->drawCircle(300,300,200);
 	sleep(5);

@@ -16,6 +16,12 @@ GraphicsContext::~GraphicsContext()
 	// here to insure subclasses handle destruction properly
 }
 
+/**
+ * @brief Resolves the cases when the line is defined from right to left 
+ * 
+ * @param delta - change along an axis; will be positive after return
+ * @param step - step size for an axis; will be +1 if left-to-right, -1 if right-to-left
+ */
 void GraphicsContext::resolveSlope(int& delta, int& step)
 {
 	if (delta < 0) 
@@ -29,21 +35,27 @@ void GraphicsContext::resolveSlope(int& delta, int& step)
 	}
 }
 
+/**
+ * @brief Resolves the cases when the line is defined from right to left
+ * 
+ * @param dx - change in x; will be positive after return
+ * @param dy - change in y; will be positive after return
+ * @param stepx - x step size; will be +1 if left-to-right, -1 if right-to-left
+ * @param stepy - y step size; will be +1 if left-to-right, -1 if right-to-left
+ */
 void GraphicsContext::resolveSlope(int& dx, int& dy, int& stepx, int& stepy)
 {
 	resolveSlope(dy, stepy);
     resolveSlope(dx, stepx);
 }
 
-/* This is a naive implementation that uses floating-point math
- * and "setPixel" which will need to be provided by the concrete
- * implementation.
+/**
+ * @brief Draws a line according to the Bresenham line drawing algorithm
  * 
- * Parameters:
- * 	x0, y0 - origin of line
- *  x1, y1 - end of line
- * 
- * Returns: void
+ * @param x0 - start x
+ * @param y0 - start y
+ * @param x1 - end x
+ * @param y1 - end y
  */
 void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
 {
@@ -58,32 +70,30 @@ void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
     dy <<= 1; // dy is now 2*dy 
     dx <<= 1; // dx is now 2*dx
     
-    setPixel(x0, y0);
-    
-    if (dx > dy) {
+    if (dx > dy) { // slope < 1?
+		// iterate over x
         int decision = dy - (dx >> 1);
-        while (x0 != x1) {
+        for (int x = x0, y = y0; x != x1; x += stepx) {
+			setPixel(x, y);
             if (decision >= 0) {
-                y0 += stepy;
+                y += stepy;
                 decision -= dx;
             }
-            x0 += stepx;
             decision += dy;
-            setPixel(x0, y0);
         }
-    } else {
+    } else { 
+		// iterate over y
         int decision = dx - (dy >> 1);
-        while (y0 != y1) {
+        for (int y = y0, x = x0; y != y1; y += stepy) {
+			setPixel(x, y);
             if (decision >= 0) {
-                x0 += stepx;
+                x += stepx;
                 decision -= dy;
             }
-            y0 += stepy;
             decision += dx;
-            setPixel(x0, y0);
         }
     }
-	setPixel(x1, y1);
+	setPixel(x1, y1); // set endpoint
 }
 
 
