@@ -18,13 +18,20 @@ GraphicsContext::~GraphicsContext()
 
 void GraphicsContext::bresenham(int x0, int y0, int x1, int y1, int dx, int dy, bool reversed)
 {
-	double slope = (double)dy/dx;
-	// x increment - need to know which way to go
 	int incx = std::abs(dx)/dx;  // will be 1 or -1
-	
-	for (int x = x0; x != x1; x += incx)
+	int d = 2 * dy - dx;
+	for (int x = x0, y = y0; x != x1; x += incx)
 	{
-		reversed ? setPixel(y0+slope*(x-x0),x) : setPixel(x,y0+slope*(x-x0));
+		if (d < 0)
+		{
+			reversed ? setPixel(y, x) : setPixel(x, y);
+			d += 2 * dy;
+		}
+		else
+		{
+			reversed ? setPixel(++y, x) : setPixel(x, ++y);
+			d += (2 * dy) - (2 * dx);
+		}
 	}
 }
 
@@ -40,7 +47,6 @@ void GraphicsContext::bresenham(int x0, int y0, int x1, int y1, int dx, int dy, 
  */
 void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
 {
-	
 	// find slope
 	int dx = x1-x0;
 	int dy = y1-y0;
@@ -50,11 +56,11 @@ void GraphicsContext::drawLine(int x0, int y0, int x1, int y1)
 	{
 		// slope < 1?
 		if (std::abs(dx)>std::abs(dy))
-		{	// iterate over x
+		{ // iterate over x
 			bresenham(x0, y0, x1, y1, dx, dy, false);
 		} // end of if |slope| < 1 
 		else 
-		{	// iterate over y
+		{ // iterate over y
 			bresenham(y0, x0,y1, x1, dy, dx, true);	
 		} // end of else |slope| >= 1
 		// loop ends on iteration early - catch endpoint
