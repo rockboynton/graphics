@@ -11,11 +11,8 @@
  * context (or window).  Specific expectations for the various
  * methods are documented below.
  * 
- * Note, naive implementations of a line scan-conversion and a
- * circle scan-conversion are provided here which rely on the
- * concrete setPixel of the implemnting subclass.  These 
- * implementation are expected to be overridden for
- * better performance.
+ * Note, line scan-conversion and a circle scan-conversion are provided 
+ * here which rely on the concrete setPixel of the implementing subclass.  
  * 
  * */    
 
@@ -86,31 +83,23 @@ class GraphicsContext
 		// This should reset entire context to the current background
 		virtual void clear()=0;
 
-		// These are the naive implementations that use setPixel,
-		// but are overridable should a context have a better-
-		// performing version available.
 
-		 /* This is a naive implementation that uses floating-point math
-		 * and "setPixel" which will need to be provided by the concrete
-		 * implementation.
+		/**
+		 * @brief Draws a line according to the Bresenham line drawing algorithm
 		 * 
-		 * Parameters:
-		 * 	x0, y0 - origin of line
-		 *  x1, y1 - end of line
-		 * 
-		 * Returns: void
+		 * @param x0 - start x
+		 * @param y0 - start y
+		 * @param x1 - end x
+		 * @param y1 - end y
 		 */
 		virtual void drawLine(int x0, int y0, int x1, int y1);
 		
-		/* This is a naive implementation that uses floating-point math
-		 * and "setPixel" which will need to be provided by the concrete
-		 * implementation.
+		/**
+		 * @brief Draws a circle using a modified bresenham line algorithm for circles
 		 * 
-		 * Parameters:
-		 * 	x0, y0 - origin/center of circle
-		 *  radius - radius of circle
-		 * 
-		 * Returns: void
+		 * @param x0 - center x
+		 * @param y0 - center y
+		 * @param radius - radius of the circle
 		 */
 		virtual void drawCircle(int x0, int y0, unsigned int radius);
 
