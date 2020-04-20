@@ -15,6 +15,7 @@ Shape::~Shape() {}
 Shape& Shape::operator=(const Shape& rhs)
 {
     // TODO
+    return *this;
 }
 
 /**
@@ -31,8 +32,20 @@ Shape& Shape::draw(GraphicsContext& gc)
     return *this;
 }
 
-std::ostream& Shape::out(std::ostream& os)
+void Shape::out(std::ostream& os)
 {
     // TODO
-    return os;
+}
+
+/**
+ * @brief 
+ * 
+ * https://cboard.cprogramming.com/cplusplus-programming/160713-reading-file-polymorphism.html
+ * 
+ * @param is 
+ * @return std::istream& 
+ */
+void in(std::istream& is, std::vector<Shape*> shapes)
+{
+    // TODO 
 }
