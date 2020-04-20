@@ -1,6 +1,8 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
+#include "gcontext.h"
+
 /**
  * @brief Abstract shape base class
  * 
@@ -41,6 +43,16 @@ class Shape
          * @return Shape& 
          */
         virtual Shape& operator=(const Shape& rhs) = 0;
+
+        /**
+         * @brief Draw shape in Graphics context
+         * 
+         * Should not be called directly, instead as part of a concrete child class.
+         * 
+         * @param gc - GraphicsContext to draw in
+         * @return Shape& - reference to this to allow chaining
+         */
+        virtual Shape& draw(GraphicsContext& gc); // ? Should this be protected?
 
     private:
         unsigned int color; // 32 or 64 bit integer to store hex color
