@@ -24,6 +24,14 @@ class Shape
          */
         Shape(const Shape& from);
 
+        /**
+         * @brief Destroy the Shape object
+         * 
+         * Not needed for base Shape, but called when children are destructed
+         * 
+         */
+        virtual ~Shape();
+
     private:
         unsigned int color; // 32 or 64 bit integer to store hex color
 };

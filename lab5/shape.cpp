@@ -9,3 +9,5 @@ Shape::Shape(const Shape& from)
 {
     // stub
 }
+
+Shape::~Shape() {}
