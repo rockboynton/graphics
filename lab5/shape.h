@@ -32,6 +32,16 @@ class Shape
          */
         virtual ~Shape();
 
+        /**
+         * @brief Create a new shape just like rhs. 
+         * 
+         * This is a pure virtual function. It should/can never be called by users.
+         * 
+         * @param rhs 
+         * @return Shape& 
+         */
+        virtual Shape& operator=(const Shape& rhs) = 0;
+
     private:
         unsigned int color; // 32 or 64 bit integer to store hex color
 };
