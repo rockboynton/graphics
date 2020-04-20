@@ -90,6 +90,8 @@ class Shape
          */
         static void in(std::istream& is, std::vector<Shape*> shapes);
 
+        virtual Shape* clone() = 0;
+
     private:
         unsigned int color; // 32 or 64 bit integer to store hex color
 };
