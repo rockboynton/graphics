@@ -25,3 +25,9 @@ Shape& Shape::draw(GraphicsContext& gc)
     gc.setColor(this->color);
     return *this;
 }
+
+std::ostream& Shape::out(std::ostream& os)
+{
+    // TODO
+    return os;
+}

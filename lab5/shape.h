@@ -1,6 +1,8 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
+#include <iostream> // for std::ostream
+
 #include "gcontext.h"
 
 /**
@@ -39,8 +41,8 @@ class Shape
          * 
          * This is a pure virtual function. It should/can never be called by users.
          * 
-         * @param rhs 
-         * @return Shape& 
+         * @param rhs - shape which properties are copied
+         * @return Shape& - reference to this to allow chaining
          */
         virtual Shape& operator=(const Shape& rhs) = 0;
 
@@ -53,6 +55,16 @@ class Shape
          * @return Shape& - reference to this to allow chaining
          */
         virtual Shape& draw(GraphicsContext& gc); // ? Should this be protected?
+
+        /**
+         * @brief Print shape properties to the output stream
+         * 
+         * Should not be called directly, instead as part of a concrete child class.
+         * 
+         * @param os - Output Stream reference (std::ostream&)
+         * @return std::ostream& - reference to os to allow chaining
+         */
+        virtual std::ostream& out(std::ostream& os);
 
     private:
         unsigned int color; // 32 or 64 bit integer to store hex color
