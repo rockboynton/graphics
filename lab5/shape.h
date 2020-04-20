@@ -44,7 +44,7 @@ class Shape
          * @param rhs - shape which properties are copied
          * @return Shape& - reference to this to allow chaining
          */
-        virtual Shape& operator=(const Shape& rhs) = 0;
+        virtual Shape& operator=(const Shape& rhs);
 
         /**
          * @brief Draw shape in Graphics context

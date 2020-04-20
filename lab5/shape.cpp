@@ -12,6 +12,11 @@ Shape::Shape(const Shape& from)
 
 Shape::~Shape() {}
 
+Shape& Shape::operator=(const Shape& rhs)
+{
+    // TODO
+}
+
 /**
  * @brief Sets the color of the shape
  * 
