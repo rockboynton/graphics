@@ -56,6 +56,21 @@ class Line: public Shape
          */
         Line& operator=(const Shape& rhs);
 
+        /**
+         * @brief Print line properties to the output stream.
+         * 
+         * @param os - Output Stream reference (std::ostream&)
+         */
+        void out(std::ostream& os);
+
+
+        /**
+         * @brief Construct a Line object from input stream
+         * 
+         * @param is 
+         */
+        void in(std::istream& is);
+
     private:
         std::array<matrix*, 2> coordinates; // holds {start, end}
 };

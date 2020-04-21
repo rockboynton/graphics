@@ -31,3 +31,13 @@ Shape* Line::clone()
     // TODO
     return this;
 }
+
+void Line::out(std::ostream& os)
+{
+    // TODO
+}
+
+void Line::in(std::istream& is)
+{
+    // TODO
+}
