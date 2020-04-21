@@ -21,6 +21,13 @@ class Line: public Shape
         Line(int x0, int y0, int x1, int y1, unsigned int color);
 
         /**
+         * @brief Copy construct a new Line object from another Line
+         * 
+         * @param from - line to copy 
+         */
+        Line(const Line& from);
+
+        /**
          * @brief Destroy the Line object
          * 
          */
@@ -32,7 +39,7 @@ class Line: public Shape
          * @param gc - GraphicsContext to draw in
          * @return Shape& - reference to this to allow chaining
          */
-        Shape& draw(GraphicsContext& gc);
+        Line& draw(GraphicsContext& gc);
 
         /**
          * @brief Copy this line object and return a Shape pointer to it
@@ -40,6 +47,14 @@ class Line: public Shape
          * @return Shape* - pointer containing clone of this
          */
         Shape* clone();
+
+        /**
+         * @brief Create a new line just like rhs. 
+         * 
+         * @param rhs - line which properties are copied
+         * @return Shape& - reference to this to allow chaining
+         */
+        Line& operator=(const Shape& rhs);
 
     private:
         std::array<matrix*, 2> coordinates; // holds {start, end}

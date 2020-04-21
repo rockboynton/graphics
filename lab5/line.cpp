@@ -5,12 +5,22 @@ Line::Line(int x0, int y0, int x1, int y1, unsigned int color): Shape(color)
     // TODO
 }
 
+Line::Line(const Line& from): Shape(from.color)
+{
+
+}
+
+Line& Line::operator=(const Shape& rhs)
+{
+    return *this;
+}
+
 Line::~Line()
 {
     // TODO
 }
 
-Shape& Line::draw(GraphicsContext& gc)
+Line& Line::draw(GraphicsContext& gc)
 {
     // TODO
     return *this;
