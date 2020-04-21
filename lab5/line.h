@@ -20,6 +20,10 @@ class Line: public Shape
          */
         Line(int x0, int y0, int x1, int y1, unsigned int color);
 
+        Shape& draw(GraphicsContext& gc);
+
+        Shape* clone();
+
     private:
         std::array<matrix*, 2> coordinates; // holds {start, end}
 };
