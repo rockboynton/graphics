@@ -37,15 +37,6 @@ class Shape
          */
         virtual ~Shape();
 
-        /**
-         * @brief Create a new shape just like rhs. 
-         * 
-         * This is a pure virtual function. It should/can never be called by users.
-         * 
-         * @param rhs - shape which properties are copied
-         * @return Shape& - reference to this to allow chaining
-         */
-        virtual Shape& operator=(const Shape& rhs);
 
         /**
          * @brief Draw shape in Graphics context.
@@ -92,6 +83,17 @@ class Shape
 
         virtual Shape* clone() = 0;
 
+    protected:
+        /**
+         * @brief Create a new shape just like rhs. 
+         * 
+         * This is a pure virtual function. It should/can never be called by users.
+         * 
+         * @param rhs - shape which properties are copied
+         * @return Shape& - reference to this to allow chaining
+         */
+        virtual Shape& operator=(const Shape& rhs);
+        
     private:
         unsigned int color; // 32 or 64 bit integer to store hex color
 };
