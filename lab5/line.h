@@ -20,8 +20,25 @@ class Line: public Shape
          */
         Line(int x0, int y0, int x1, int y1, unsigned int color);
 
+        /**
+         * @brief Destroy the Line object
+         * 
+         */
+        ~Line();
+
+        /**
+         * @brief Draw this line in provided Graphics context.
+         * 
+         * @param gc - GraphicsContext to draw in
+         * @return Shape& - reference to this to allow chaining
+         */
         Shape& draw(GraphicsContext& gc);
 
+        /**
+         * @brief Copy this line object and return a Shape pointer to it
+         * 
+         * @return Shape* - pointer containing clone of this
+         */
         Shape* clone();
 
     private:
