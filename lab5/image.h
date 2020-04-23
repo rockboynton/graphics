@@ -28,6 +28,14 @@ class Image
          */
         ~Image();
 
+        /**
+         * @brief Add a shape to this image
+         * 
+         * @param shape - shape to be added
+         * @return Image& - reference to this, to allow chaining
+         */
+        Image& add(Shape* shape);
+
     private:
         std::vector<std::unique_ptr<Shape>> shapes;
 };

@@ -14,3 +14,9 @@ Image::~Image()
 {
     // TODO
 }
+
+Image& Image::add(Shape* shape)
+{
+    // TODO
+    return *this;
+}
