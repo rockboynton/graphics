@@ -43,6 +43,18 @@ class Image
          */
         void draw(GraphicsContext* gc);
 
+        /**
+         * @brief Read shape properties from an input stream
+         * 
+         * Designed to be be used to read from a text file and construct shapes
+         * from it. It will add all shapes read in to this image
+         * 
+         * See definition for input format
+         * 
+         * @param is - Input Stream reference (std::ostream&)
+         */
+        void in(std::istream& is);
+
     private:
         std::vector<std::unique_ptr<Shape>> shapes;
 };
