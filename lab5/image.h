@@ -36,6 +36,13 @@ class Image
          */
         Image& add(Shape* shape);
 
+        /**
+         * @brief Draws all shapes in this image
+         * 
+         * @param gc - GraphicsContext to draw in
+         */
+        void draw(GraphicsContext* gc);
+
     private:
         std::vector<std::unique_ptr<Shape>> shapes;
 };

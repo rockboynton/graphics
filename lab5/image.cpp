@@ -20,3 +20,8 @@ Image& Image::add(Shape* shape)
     // TODO
     return *this;
 }
+
+void Image::draw(GraphicsContext* gc)
+{
+    // TODO
+}
