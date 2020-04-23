@@ -59,6 +59,8 @@ class Line: public Shape
         /**
          * @brief Print line properties to the output stream.
          * 
+         * See definition for output format
+         * 
          * @param os - Output Stream reference (std::ostream&)
          */
         void out(std::ostream& os);
@@ -66,6 +68,8 @@ class Line: public Shape
 
         /**
          * @brief Construct a Line object from input stream
+         * 
+         * See definition for input format
          * 
          * @param is 
          */

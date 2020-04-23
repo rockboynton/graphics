@@ -53,6 +53,8 @@ class Shape
          * 
          * Should not be called directly, instead as part of a concrete child class.
          * 
+         * See definition for output format
+         * 
          * @param os - Output Stream reference (std::ostream&)
          */
         virtual void out(std::ostream& os);

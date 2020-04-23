@@ -2,7 +2,7 @@
 #define IMAGE_H
 
 #include <memory>
-#include <vector>
+#include <unordered_set>
 
 #include "shape.h"
 
@@ -44,10 +44,10 @@ class Image
         void draw(GraphicsContext* gc);
 
         /**
-         * @brief Read shape properties from an input stream
+         * @brief Read image properties from an input stream
          * 
-         * Designed to be be used to read from a text file and construct shapes
-         * from it. It will add all shapes read in to this image
+         * Designed to be be used to read shapes from a text file.
+         * It will add all shapes read in to this image.
          * 
          * See definition for input format
          * 
@@ -55,8 +55,19 @@ class Image
          */
         void in(std::istream& is);
 
+        /**
+         * @brief Print image properties to the output stream
+         * 
+         * Prints all shapes in this image
+         * 
+         * See definition for output format
+         * 
+         * @param os - Output Stream reference (std::ostream&)
+         */
+        void out(std::ostream& os);
+
     private:
-        std::vector<std::unique_ptr<Shape>> shapes;
+        std::unordered_set<std::unique_ptr<Shape>> shapes;
 };
 
 #endif

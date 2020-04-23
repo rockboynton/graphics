@@ -61,12 +61,16 @@ class Triangle: public Shape
         /**
          * @brief Print Triangle properties to the output stream.
          * 
+         * See definition for output format
+         * 
          * @param os - Output Stream reference (std::ostream&)
          */
         void out(std::ostream& os);
 
         /**
          * @brief Construct a Triangle object from input stream
+         * 
+         * See definition for input format
          * 
          * @param is 
          */

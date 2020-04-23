@@ -26,7 +26,12 @@ void Image::draw(GraphicsContext* gc)
     // TODO
 }
 
-void in(std::istream& is)
+void Image::in(std::istream& is)
 {
     // TODO
+}
+
+void Image::out(std::ostream& os)
+{
+
 }
