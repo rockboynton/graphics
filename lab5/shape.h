@@ -46,7 +46,7 @@ class Shape
          * @param gc - GraphicsContext to draw in
          * @return Shape& - reference to this to allow chaining
          */
-        virtual Shape& draw(GraphicsContext& gc); // ? Should this be protected?
+        virtual Shape& draw(GraphicsContext* gc); // ? Should this be protected?
 
         /**
          * @brief Print shape properties to the output stream.

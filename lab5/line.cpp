@@ -20,7 +20,7 @@ Line::~Line()
     // TODO
 }
 
-Line& Line::draw(GraphicsContext& gc)
+Line& Line::draw(GraphicsContext* gc)
 {
     // TODO
     return *this;

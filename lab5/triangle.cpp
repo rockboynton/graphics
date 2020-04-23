@@ -16,7 +16,7 @@ Triangle::~Triangle()
     // TODO
 }
 
-Triangle& Triangle::draw(GraphicsContext& gc)
+Triangle& Triangle::draw(GraphicsContext* gc)
 {
     // TODO
     return *this;

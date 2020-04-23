@@ -39,7 +39,7 @@ class Line: public Shape
          * @param gc - GraphicsContext to draw in
          * @return Shape& - reference to this to allow chaining
          */
-        Line& draw(GraphicsContext& gc);
+        Line& draw(GraphicsContext* gc);
 
         /**
          * @brief Copy this line object and return a Shape pointer to it

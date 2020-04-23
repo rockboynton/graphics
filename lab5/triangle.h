@@ -41,7 +41,7 @@ class Triangle: public Shape
          * @param gc - GraphicsContext to draw in
          * @return Shape& - reference to this to allow chaining
          */
-        Triangle& draw(GraphicsContext& gc);
+        Triangle& draw(GraphicsContext* gc);
 
         /**
          * @brief Copy this Triangle object and return a Shape pointer to it

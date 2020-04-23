@@ -26,9 +26,9 @@ Shape& Shape::operator=(const Shape& rhs)
  * @param gc - GraphicsContext to draw in
  * @return Shape& - reference to this to allow chaining
  */
-Shape& Shape::draw(GraphicsContext& gc)
+Shape& Shape::draw(GraphicsContext* gc)
 {
-    gc.setColor(this->color);
+    gc->setColor(this->color);
     return *this;
 }
 
