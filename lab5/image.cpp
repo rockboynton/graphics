@@ -33,5 +33,10 @@ void Image::in(std::istream& is)
 
 void Image::out(std::ostream& os)
 {
+    // TODO
+}
 
+void Image::erase()
+{
+    // TODO
 }

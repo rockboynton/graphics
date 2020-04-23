@@ -66,6 +66,12 @@ class Image
          */
         void out(std::ostream& os);
 
+        /**
+         * @brief Remove all the shapes from this image
+         * 
+         */
+        void erase();
+
     private:
         std::unordered_set<std::unique_ptr<Shape>> shapes;
 };
