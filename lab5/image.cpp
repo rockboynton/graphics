@@ -9,3 +9,8 @@ Image::Image(const Image& from)
 {
     // TODO
 }
+
+Image::~Image()
+{
+    // TODO
+}

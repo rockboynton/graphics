@@ -1,6 +1,7 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
+#include <memory>
 #include <vector>
 
 #include "shape.h"
@@ -21,8 +22,14 @@ class Image
          */
         Image(const Image& from);
 
+        /**
+         * @brief Destroy the Image object
+         * 
+         */
+        ~Image();
+
     private:
-        std::vector<Shape*> shapes;
+        std::vector<std::unique_ptr<Shape>> shapes;
 };
 
 #endif
