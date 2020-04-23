@@ -14,6 +14,13 @@ class Image
          */
         Image();
 
+        /**
+         * @brief Construct a new Image object from another image
+         * 
+         * @param from - Image to copy
+         */
+        Image(const Image& from);
+
     private:
         std::vector<Shape*> shapes;
 };
