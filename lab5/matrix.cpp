@@ -32,7 +32,7 @@ double mrow::operator[](unsigned int col) const
 // Helper for copy constructor and assignment operator
 void matrix::copy(matrix& A, const matrix& B)
 {
-	for (int i = 0; i < A.rows; i++)
+	for (unsigned int i = 0; i < A.rows; i++)
 	{
 		// allocate row
 		A.the_matrix[i] = new double[A.cols];
@@ -43,9 +43,9 @@ void matrix::copy(matrix& A, const matrix& B)
 }
 
 void matrix::transform(matrix& A, const std::function<void(double*)>& func) {
-	for (int i = 0; i < A.rows; i++)
+	for (unsigned int i = 0; i < A.rows; i++)
     {
-        for (int j = 0; j < A.cols; j++)
+        for (unsigned int j = 0; j < A.cols; j++)
         {
             func(&(A.the_matrix[i][j]));
         }
@@ -55,9 +55,9 @@ void matrix::transform(matrix& A, const std::function<void(double*)>& func) {
 
 void matrix::transform(const matrix& A, matrix& B, const std::function<void(double*, double*)>& func)
 {
-	for (int i = 0; i < A.rows; i++)
+	for (unsigned int i = 0; i < A.rows; i++)
     {
-        for (int j = 0; j < A.cols; j++)
+        for (unsigned int j = 0; j < A.cols; j++)
         {
             func(&(A.the_matrix[i][j]), &(B.the_matrix[i][j]));
         }
@@ -75,7 +75,7 @@ matrix::matrix(unsigned int rows, unsigned int cols):rows(rows),cols(cols)
 	
 	// allocate 2d array
 	this->the_matrix = new double*[rows];
-	for (int i = 0; i < rows; i++)
+	for (unsigned int i = 0; i < rows; i++)
 	{
 		// allocate row
 		this->the_matrix[i] = new double[cols];
@@ -96,7 +96,7 @@ matrix::matrix(const matrix& from):rows(from.rows),cols(from.cols)
 // Destructor
 matrix::~matrix()
 {
-	for (int i = 0; i < this->rows; i++)
+	for (unsigned int i = 0; i < this->rows; i++)
 	{
 		delete[] this->the_matrix[i];
 	}
@@ -108,7 +108,7 @@ matrix& matrix::operator=(const matrix& rhs)
 {
 	if (this != &rhs)
 	{
-		for (int i = 0; i < this->rows; i++)
+		for (unsigned int i = 0; i < this->rows; i++)
 		{
 			delete[] this->the_matrix[i];
 		}
@@ -136,7 +136,7 @@ matrix matrix::identity(unsigned int size)
 
 	// use p-constructor
 	matrix I(size,size);
-	for (int i = 0; i < size; i++)
+	for (unsigned int i = 0; i < size; i++)
 	{
 		I.the_matrix[i][i] = 1.0;
 	}
@@ -166,11 +166,11 @@ matrix matrix::operator*(const matrix& rhs) const
 		throw std::runtime_error("Matrices must have the same inner dimensions");
 	}
 	matrix retVal(this->rows, rhs.cols);
-	for (int i = 0; i < this->rows; i++)
+	for (unsigned int i = 0; i < this->rows; i++)
 	{
-		for (int j = 0; j < rhs.cols; j++)
+		for (unsigned int j = 0; j < rhs.cols; j++)
 		{
-			for (int k = 0; k < rhs.rows; k++)
+			for (unsigned int k = 0; k < rhs.rows; k++)
 			{
 				retVal[i][j] = retVal[i][j] + (*this)[i][k] * rhs[k][j];
 			}	
@@ -194,9 +194,9 @@ matrix matrix::operator*(const double scale) const
 matrix matrix::operator~() const
 {
 	matrix retVal(this->cols, this->rows);
-	for (int i = 0; i < this->rows; i++)
+	for (unsigned int i = 0; i < this->rows; i++)
 	{
-		for (int j = 0; j < this->cols; j++)
+		for (unsigned int j = 0; j < this->cols; j++)
 		{
 			retVal[j][i] = (*this)[i][j];
 		}
@@ -239,10 +239,10 @@ mrow matrix::operator[](unsigned int row) const
 // Global insertion and operator
 std::ostream& operator<<(std::ostream& os, const matrix& rhs)
 {
-    for (int i = 0; i < rhs.rows; i ++)
+    for (unsigned int i = 0; i < rhs.rows; i ++)
     {
         os << "[ ";
-        for (int j = 0; j < rhs.cols; j++)
+        for (unsigned int j = 0; j < rhs.cols; j++)
         {
             os << rhs.the_matrix[i][j] << " ";
         }

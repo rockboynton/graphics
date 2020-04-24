@@ -1,6 +1,7 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
+#include <memory>
 #include <array>
 
 #include "shape.h"
@@ -77,7 +78,7 @@ class Triangle: public Shape
         void in(std::istream& is);
 
     private:
-        std::array<matrix*, 3> coordinates; // holds {start, middle, end}
+        std::array<std::unique_ptr<matrix>, 3> coordinates; // holds {start, middle, end}
 };
 
 #endif

@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -std=c++17 -c -MMD -Wall
 LFLAGS = -lX11
-SOURCES = image.cpp triangle.cpp line.cpp shape.cpp x11context.cpp gcontext.cpp main.cpp 
+SOURCES = matrix.cpp image.cpp triangle.cpp line.cpp shape.cpp x11context.cpp gcontext.cpp main.cpp 
 OBJECTS = $(SOURCES:.cpp=.o)
 EXCECUTABLE = main
 
