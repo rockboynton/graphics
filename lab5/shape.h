@@ -81,9 +81,11 @@ class Shape
          * @param is - Input Stream reference (std::ostream&)
          * @param shapes - vector of Shape* to populate
          */
-        static void in(std::istream& is, std::vector<Shape*> shapes);
+        static void in(std::istream& in, std::vector<Shape*>& shapes);
 
         virtual Shape* clone() = 0;
+
+        friend std::istream& operator>>(std::istream& in, Shape& shape);
 
     protected:
         /**
