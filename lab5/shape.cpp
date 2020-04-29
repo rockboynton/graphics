@@ -16,8 +16,6 @@ Shape::~Shape() {/*nothing to do*/}
  * 
  * Leaves rest of the assignment process to derived class
  * 
- * @param rhs 
- * @return Shape& 
  */
 Shape& Shape::operator=(const Shape& rhs)
 {
@@ -31,8 +29,6 @@ Shape& Shape::operator=(const Shape& rhs)
  * 
  * Leaves rest of the assignment process to derived class
  * 
- * @param gc - GraphicsContext to draw in
- * @return Shape& - reference to this to allow chaining
  */
 Shape& Shape::draw(GraphicsContext* gc)
 {
@@ -42,8 +38,6 @@ Shape& Shape::draw(GraphicsContext* gc)
 
 /**
  * @brief Puts this->color into os
- * 
- * @param os output stream that color is put into
  */
 void Shape::out(std::ostream& os)
 {
@@ -56,9 +50,6 @@ void Shape::out(std::ostream& os)
  * WARNING: Creates child objects from base. We probably shouldn't do that
  * 
  * https://cboard.cprogramming.com/cplusplus-programming/160713-reading-file-polymorphism.html
- * 
- * @param is 
- * @return std::istream& 
  */
 void Shape::in(std::istream& in, std::vector<Shape*>& shapes)
 {
