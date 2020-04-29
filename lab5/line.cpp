@@ -4,11 +4,8 @@
 /**
  * @brief Construct a new Line object
  * 
- * @param x0 
- * @param y0 
- * @param x1 
- * @param y1 
- * @param color 
+ * Construct the start and end coordinates of this line and set the color
+ * See matrix::coordinate
  */
 Line::Line(int x0, int y0, int x1, int y1, unsigned int color): Shape(color)
 {
@@ -19,17 +16,25 @@ Line::Line(int x0, int y0, int x1, int y1, unsigned int color): Shape(color)
 
 Line::Line(const Line& from): Shape(from.color)
 {
-
+    coordinates = from.coordinates;
 }
 
-Line& Line::operator=(const Shape& rhs)
+void swap(Line& first, Line& second)
 {
+    using std::swap;
+    swap(first.coordinates, second.coordinates);
+}
+
+Line& Line::operator=(Line rhs)
+{
+    *this = rhs;
+    swap(*this, rhs);
     return *this;
 }
 
 Line::~Line()
 {
-    for (auto coordinate : coordinates) {
+    for (auto& coordinate : coordinates) {
         delete coordinate;
     }
 }

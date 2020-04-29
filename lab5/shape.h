@@ -94,7 +94,7 @@ class Shape
          * @param rhs - shape which properties are copied
          * @return Shape& - reference to this to allow chaining
          */
-        virtual Shape& operator=(const Shape& rhs);
+        Shape& operator=(const Shape& rhs);
         
         unsigned int color; // 32 or 64 bit integer to store hex color
     private:

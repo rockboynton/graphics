@@ -28,6 +28,16 @@ class Line: public Shape
          */
         Line(const Line& from);
 
+        friend void swap(Line& first, Line& second);
+
+        /**
+         * @brief Create a new line just like rhs. 
+         * 
+         * @param rhs - line which properties are copied
+         * @return Shape& - reference to this to allow chaining
+         */
+        Line& operator=(Line rhs);
+
         /**
          * @brief Destroy the Line object
          * 
@@ -49,13 +59,6 @@ class Line: public Shape
          */
         Shape* clone();
 
-        /**
-         * @brief Create a new line just like rhs. 
-         * 
-         * @param rhs - line which properties are copied
-         * @return Shape& - reference to this to allow chaining
-         */
-        Line& operator=(const Shape& rhs);
 
         /**
          * @brief Print line properties to the output stream.

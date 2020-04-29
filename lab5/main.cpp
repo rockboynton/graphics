@@ -12,9 +12,11 @@ int main(void)
 
 	// Run tests
 	Line line(50, 50, 200, 200, GraphicsContext::RED);
-	Triangle triangle(100, 100, 50, 300, 300, 300, GraphicsContext::RED);
+	Line line2(80, 70, 160, 400, GraphicsContext::GREEN);
+	line2 = line;
+	// Triangle triangle(100, 100, 50, 300, 300, 300, GraphicsContext::RED);
 
-	sleep(5);
+	sleep(1);
 	delete gc;
  
 	return 0;
