@@ -1,63 +1,63 @@
-#include "line.h"
+#include "polygon.h"
 
-const int Line::num_coordinates = 2;
+const int Polygon::num_coordinates = 2;
 
 /**
- * @brief Construct a new Line object
+ * @brief Construct a new Polygon object
  * 
  * Construct the start and end coordinates of this line and set the color
  * See matrix::coordinate
  */
-Line::Line(int x0, int y0, int x1, int y1, unsigned int color): Shape(color)
+Polygon::Polygon(unsigned int sides, unsigned int color): Shape(color)
 {
     for (auto& coordinate : coordinates) {
         coordinate = new matrix(matrix::coordinate(x0, y0));
     }
 }
 
-Line::Line(const Line& from): Shape(from.color)
+Polygon::Polygon(const Polygon& from): Shape(from.color)
 {
     // coordinates = from.coordinates;
 }
 
-void swap(Line& first, Line& second)
+void swap(Polygon& first, Polygon& second)
 {
     // using std::swap;
     // swap(first.coordinates, second.coordinates);
 }
 
-Line& Line::operator=(Line rhs)
+Polygon& Polygon::operator=(Polygon rhs)
 {
     // *this = rhs;
     // swap(*this, rhs);
     return *this;
 }
 
-Line::~Line()
+Polygon::~Polygon()
 {
     // for (auto& coordinate : coordinates) {
     //     delete coordinate;
     // }
 }
 
-Line& Line::draw(GraphicsContext* gc)
+Polygon& Polygon::draw(GraphicsContext* gc)
 {
     // TODO
     return *this;
 }
 
-Shape* Line::clone()
+Shape* Polygon::clone()
 {
     // TODO
     return this;
 }
 
-void Line::out(std::ostream& os)
+void Polygon::out(std::ostream& os)
 {
     // TODO
 }
 
-void Line::in(std::istream& is)
+void Polygon::in(std::istream& is)
 {
     // TODO
 }

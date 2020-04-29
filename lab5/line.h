@@ -80,7 +80,8 @@ class Line: public Shape
         void in(std::istream& is);
 
     private:
-        std::array<matrix*, 2> coordinates; // holds {start, end}
+        static const int num_coordinates;
+        std::vector<matrix*> coordinates; // holds {start, end}
 };
 
 #endif
