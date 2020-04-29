@@ -3,6 +3,8 @@
 #include <cmath>
 #include <functional>
 
+const int matrix::COORDINATE_ROWS = 4;
+const int matrix::COORDINATE_COLS = 4;
 
 mrow::mrow(unsigned int len, double* matrix_row):len(len),matrix_row(matrix_row){}
 
@@ -141,6 +143,16 @@ matrix matrix::identity(unsigned int size)
 		I.the_matrix[i][i] = 1.0;
 	}
 
+	return I;
+}
+
+matrix matrix::coordinate(int x0, int y0)
+{
+	matrix I(COORDINATE_ROWS, COORDINATE_COLS);
+	I[0][0] = x0; // x-coord
+    I[1][0] = y0; // y-coord
+    I[2][0] = 0; // z-coord
+    I[3][0] = 1; // homogenous-coord
 	return I;
 }
 

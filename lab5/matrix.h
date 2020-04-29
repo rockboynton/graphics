@@ -37,6 +37,9 @@ class mrow
 class matrix
 {
 	public:
+		static const int COORDINATE_ROWS;
+		static const int COORDINATE_COLS;
+
 		// make the insertion operator a friend so it can access matrix
 		// class private variables
 		
@@ -84,6 +87,19 @@ class matrix
 		// throw (matrixException)
 		//
 		static matrix identity(unsigned int size);
+
+		/**
+		 * @brief Creates a coordinate matrix/vector 
+		 * 
+		 * A coordinate matrix is a 4x1 matrix as follows:
+		 * row 1: x-coord
+         * row 2: y-coord
+         * row 3: z-coord
+         * row 4: homogenous-coord
+		 * 
+		 * @return matrix 
+		 */
+		static matrix coordinate(int x0, int y0);
 		
  
  
