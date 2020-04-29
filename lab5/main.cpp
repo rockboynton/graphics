@@ -1,17 +1,20 @@
 #include "x11context.h"
+#include "line.h"
+#include "triangle.h"
+#include "image.h"
+
 #include <unistd.h>
 #include <iostream>
  
 int main(void)
 {
-	GraphicsContext* gc = new X11Context(800,600,GraphicsContext::WHITE);
- 
-	int a[2] = {1,2};
+	GraphicsContext* gc = new X11Context(800,600,GraphicsContext::BLACK);
 
-    auto [x,y] = a; // creates e[2], copies a into e, then x refers to e[0], y refers to e[1]
+	// Run tests
+	Line line(50, 50, 200, 200, GraphicsContext::RED);
+	Triangle triangle(100, 100, 50, 300, 300, 300, GraphicsContext::RED);
 
-    std::cout << x << y << std::endl;
-
+	sleep(5);
 	delete gc;
  
 	return 0;
