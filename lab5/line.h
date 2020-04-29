@@ -77,7 +77,7 @@ class Line: public Shape
         void in(std::istream& is);
 
     private:
-        std::array<std::unique_ptr<matrix>, 2> coordinates; // holds {start, end}
+        std::array<matrix*, 2> coordinates; // holds {start, end}
 };
 
 #endif

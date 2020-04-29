@@ -12,14 +12,8 @@
  */
 Line::Line(int x0, int y0, int x1, int y1, unsigned int color): Shape(color)
 {
-    int params[2][2] = {{x0, y0}, {x1, y1}};
-    int point = 0;
     for (auto& coordinate : coordinates) {
-        coordinate = std::make_unique<matrix>(matrix::COORDINATE_ROWS , matrix::COORDINATE_COLS);
-        (*coordinate)[0][0] = params[point][0]; // x-coord
-        (*coordinate)[1][0] = params[point++][1]; // y-coord
-        (*coordinate)[2][0] = 0; // z-coord
-        (*coordinate)[3][0] = 1; // homogenous-coord
+        coordinate = new matrix(matrix::coordinate(x0, y0));
     }
 }
 
@@ -35,7 +29,9 @@ Line& Line::operator=(const Shape& rhs)
 
 Line::~Line()
 {
-    // TODO
+    for (auto coordinate : coordinates) {
+        delete coordinate;
+    }
 }
 
 Line& Line::draw(GraphicsContext* gc)
