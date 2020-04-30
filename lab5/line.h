@@ -4,10 +4,10 @@
 #include <memory>
 #include <array>
 
-#include "shape.h"
+#include "polygon.h"
 #include "matrix.h"
 
-class Line: public Shape
+class Line: public Polygon
 {
     public:
         /**
@@ -20,45 +20,6 @@ class Line: public Shape
          * @param color - color of the line
          */
         Line(int x0, int y0, int x1, int y1, unsigned int color);
-
-        /**
-         * @brief Copy construct a new Line object from another Line
-         * 
-         * @param from - line to copy 
-         */
-        Line(const Line& from);
-
-        friend void swap(Line& first, Line& second);
-
-        /**
-         * @brief Create a new line just like rhs. 
-         * 
-         * @param rhs - line which properties are copied
-         * @return Shape& - reference to this to allow chaining
-         */
-        Line& operator=(Line rhs);
-
-        /**
-         * @brief Destroy the Line object
-         * 
-         */
-        ~Line();
-
-        /**
-         * @brief Draw this line in provided Graphics context.
-         * 
-         * @param gc - GraphicsContext to draw in
-         * @return Shape& - reference to this to allow chaining
-         */
-        Line& draw(GraphicsContext* gc);
-
-        /**
-         * @brief Copy this line object and return a Shape pointer to it
-         * 
-         * @return Shape* - pointer containing clone of this
-         */
-        Shape* clone();
-
 
         /**
          * @brief Print line properties to the output stream.
@@ -80,8 +41,6 @@ class Line: public Shape
         void in(std::istream& is);
 
     private:
-        static const int num_coordinates;
-        std::vector<matrix*> coordinates; // holds {start, end}
 };
 
 #endif

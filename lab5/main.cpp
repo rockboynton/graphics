@@ -2,6 +2,7 @@
 #include "line.h"
 #include "triangle.h"
 #include "image.h"
+#include "matrix.h"
 
 #include <unistd.h>
 #include <iostream>

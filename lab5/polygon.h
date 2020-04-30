@@ -14,7 +14,7 @@ class Polygon: public Shape
          * @brief Construct a new Polygon object
          * @param color - color of the polygon
          */
-        Polygon(unsigned int sides, unsigned int color);
+        Polygon(unsigned int color);
 
         /**
          * @brief Copy construct a new Polygon object from another Polygon
@@ -64,6 +64,7 @@ class Polygon: public Shape
          */
         void out(std::ostream& os);
 
+        void add_vertex(int x, int y);
 
         /**
          * @brief Construct a Polygon object from input stream
@@ -74,9 +75,10 @@ class Polygon: public Shape
          */
         void in(std::istream& is);
 
+    protected:
+
     private:
-        static const int num_coordinates;
-        std::vector<matrix*> coordinates; // holds {start, end}
+        std::vector<matrix> coordinates; // holds {start, end}
 };
 
 #endif

@@ -1,6 +1,5 @@
 #include "polygon.h"
 
-const int Polygon::num_coordinates = 2;
 
 /**
  * @brief Construct a new Polygon object
@@ -8,36 +7,35 @@ const int Polygon::num_coordinates = 2;
  * Construct the start and end coordinates of this line and set the color
  * See matrix::coordinate
  */
-Polygon::Polygon(unsigned int sides, unsigned int color): Shape(color)
+Polygon::Polygon(unsigned int color): Shape(color)
 {
-    for (auto& coordinate : coordinates) {
-        coordinate = new matrix(matrix::coordinate(x0, y0));
-    }
+    
+}
+
+void Polygon::add_vertex(int x, int y) 
+{
+    coordinates.push_back(matrix::coordinate(x, y));
 }
 
 Polygon::Polygon(const Polygon& from): Shape(from.color)
 {
-    // coordinates = from.coordinates;
+    coordinates = from.coordinates;
 }
 
 void swap(Polygon& first, Polygon& second)
 {
-    // using std::swap;
-    // swap(first.coordinates, second.coordinates);
+    using std::swap;
+    swap(first.coordinates, second.coordinates);
 }
 
 Polygon& Polygon::operator=(Polygon rhs)
 {
-    // *this = rhs;
-    // swap(*this, rhs);
+    swap(*this, rhs);
     return *this;
 }
 
 Polygon::~Polygon()
 {
-    // for (auto& coordinate : coordinates) {
-    //     delete coordinate;
-    // }
 }
 
 Polygon& Polygon::draw(GraphicsContext* gc)
