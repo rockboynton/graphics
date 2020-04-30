@@ -30,7 +30,6 @@ class Line: public Polygon
          */
         void out(std::ostream& os);
 
-
         /**
          * @brief Construct a Line object from input stream
          * 
@@ -39,8 +38,6 @@ class Line: public Polygon
          * @param is 
          */
         void in(std::istream& is);
-
-    private:
 };
 
 #endif

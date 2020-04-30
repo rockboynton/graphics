@@ -1,37 +1,11 @@
 #include "triangle.h"
 
 
-Triangle::Triangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned int color): Shape(color)
+Triangle::Triangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned int color): Polygon(color)
 {
-    // TODO
-}
-
-Triangle::Triangle(const Triangle& from): Shape(from.color)
-{
-    // TODO
-}
-
-Triangle::~Triangle()
-{
-    // TODO
-}
-
-Triangle& Triangle::draw(GraphicsContext* gc)
-{
-    // TODO
-    return *this;
-}
-
-Shape* Triangle::clone()
-{
-    // TODO
-    return this;
-}
-
-Triangle& Triangle::operator=(const Shape& rhs)
-{
-    // TODO
-    return *this;
+    Polygon::add_vertex(x0, y0);
+    Polygon::add_vertex(x1, y1);
+    Polygon::add_vertex(x2, y2);
 }
 
 void Triangle::out(std::ostream& os)

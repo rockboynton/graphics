@@ -4,10 +4,10 @@
 #include <memory>
 #include <array>
 
-#include "shape.h"
+#include "polygon.h"
 #include "matrix.h"
 
-class Triangle: public Shape
+class Triangle: public Polygon
 {
     public:
         /**
@@ -22,42 +22,6 @@ class Triangle: public Shape
          * @param color - color of the Triangle
          */
         Triangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned int color);
-
-        /**
-         * @brief Copy construct a new Triangle object from another Triangle
-         * 
-         * @param from - Triangle to copy 
-         */
-        Triangle(const Triangle& from);
-
-        /**
-         * @brief Destroy the Triangle object
-         * 
-         */
-        ~Triangle();
-
-        /**
-         * @brief Draw this Triangle in provided Graphics context.
-         * 
-         * @param gc - GraphicsContext to draw in
-         * @return Shape& - reference to this to allow chaining
-         */
-        Triangle& draw(GraphicsContext* gc);
-
-        /**
-         * @brief Copy this Triangle object and return a Shape pointer to it
-         * 
-         * @return Shape* - pointer containing clone of this
-         */
-        Shape* clone();
-
-        /**
-         * @brief Create a new Triangle just like rhs. 
-         * 
-         * @param rhs - Triangle which properties are copied
-         * @return Shape& - reference to this to allow chaining
-         */
-        Triangle& operator=(const Shape& rhs);
 
         /**
          * @brief Print Triangle properties to the output stream.
@@ -76,9 +40,6 @@ class Triangle: public Shape
          * @param is 
          */
         void in(std::istream& is);
-
-    private:
-        std::array<std::unique_ptr<matrix>, 3> coordinates; // holds {start, middle, end}
 };
 
 #endif

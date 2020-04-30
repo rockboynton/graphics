@@ -21,9 +21,7 @@ class Polygon: public Shape
          * 
          * @param from - polygon to copy 
          */
-        Polygon(const Polygon& from);
-
-        friend void swap(Polygon& first, Polygon& second);
+        Polygon(const Polygon& from) = default;
 
         /**
          * @brief Create a new polygon just like rhs. 
@@ -31,13 +29,13 @@ class Polygon: public Shape
          * @param rhs - polygon which properties are copied
          * @return Shape& - reference to this to allow chaining
          */
-        Polygon& operator=(Polygon rhs);
+        Polygon& operator=(const Polygon& rhs) = default;
 
         /**
          * @brief Destroy the Polygon object
          * 
          */
-        ~Polygon();
+        ~Polygon() = default;
 
         /**
          * @brief Draw this polygon in provided Graphics context.
@@ -53,7 +51,6 @@ class Polygon: public Shape
          * @return Shape* - pointer containing clone of this
          */
         Shape* clone();
-
 
         /**
          * @brief Print polygon properties to the output stream.
@@ -74,8 +71,6 @@ class Polygon: public Shape
          * @param is 
          */
         void in(std::istream& is);
-
-    protected:
 
     private:
         std::vector<matrix> coordinates; // holds {start, end}
