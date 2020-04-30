@@ -38,7 +38,6 @@ class Shape
          */
         virtual ~Shape() = default;
 
-
         /**
          * @brief Draw shape in Graphics context.
          * 

@@ -8,6 +8,11 @@ Triangle::Triangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned int 
     Polygon::add_vertex(x2, y2);
 }
 
+std::unique_ptr<Shape> Triangle::clone() const
+{
+    return std::make_unique<Triangle>(*this);
+}
+
 void Triangle::out(std::ostream& os)
 {
     // TODO

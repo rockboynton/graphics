@@ -29,12 +29,12 @@ class Polygon: public Shape
          * @param rhs - polygon which properties are copied
          * @return Shape& - reference to this to allow chaining
          */
-        Polygon& operator=(const Polygon& rhs) = default;
+        virtual Polygon& operator=(const Polygon& rhs) = default;
 
         /**
          * @brief Destroy the Polygon object
          */
-        ~Polygon() = default;
+        virtual ~Polygon() = default;
 
         /**
          * @brief Draw this polygon in provided Graphics context.
@@ -60,7 +60,6 @@ class Polygon: public Shape
          */
         void out(std::ostream& os);
 
-        void add_vertex(int x, int y);
 
         /**
          * @brief Construct a Polygon object from input stream
@@ -70,6 +69,15 @@ class Polygon: public Shape
          * @param is 
          */
         void in(std::istream& is);
+
+    protected:
+        /**
+         * @brief Adds a vertext to this polygon
+         * 
+         * @param x 
+         * @param y 
+         */
+        void add_vertex(int x, int y);
 
     private:
         std::vector<matrix> coordinates; // holds {start, end}

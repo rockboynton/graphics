@@ -22,6 +22,13 @@ class Line: public Polygon
         Line(int x0, int y0, int x1, int y1, unsigned int color);
 
         /**
+         * @brief Copy this line object and return a Shape pointer to it
+         * 
+         * @return Std::unique_ptr<Shape> - smart pointer containing clone of this
+         */
+        virtual std::unique_ptr<Shape> clone() const override;
+
+        /**
          * @brief Print line properties to the output stream.
          * 
          * See definition for output format

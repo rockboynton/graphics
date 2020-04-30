@@ -22,6 +22,13 @@ class Triangle: public Polygon
          * @param color - color of the Triangle
          */
         Triangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned int color);
+        
+        /**
+         * @brief Copy this triangle object and return a Shape pointer to it
+         * 
+         * @return Std::unique_ptr<Shape> - smart pointer containing clone of this
+         */
+        virtual std::unique_ptr<Shape> clone() const override;
 
         /**
          * @brief Print Triangle properties to the output stream.

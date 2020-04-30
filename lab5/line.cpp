@@ -13,6 +13,11 @@ Line::Line(int x0, int y0, int x1, int y1, unsigned int color): Polygon(color)
     Polygon::add_vertex(x1, y1);
 }
 
+std::unique_ptr<Shape> Line::clone() const
+{
+    return std::make_unique<Line>(*this);
+}
+
 void Line::out(std::ostream& os)
 {
     // TODO
