@@ -21,7 +21,7 @@ void Polygon::add_vertex(int x, int y)
  */
 Polygon& Polygon::draw(GraphicsContext* gc)
 {
-    gc->setColor(color);
+    Shape::draw(gc);
     auto n = coordinates.size();
     for (auto i = 0U; i < n; ++i) {
         int x0 = coordinates[i][0][0];

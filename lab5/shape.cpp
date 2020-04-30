@@ -7,23 +7,6 @@
 
 Shape::Shape(unsigned int color): color(color) {/*nothing else to do*/}
 
-Shape::Shape(const Shape& from): color(from.color) {/*nothing else to do*/}
-
-Shape::~Shape() {/*nothing to do*/}
-
-/**
- * @brief Sets color of this to rhs
- * 
- * Leaves rest of the assignment process to derived class
- * 
- */
-Shape& Shape::operator=(const Shape& rhs)
-{
-    if (this != &rhs)
-        color = rhs.color;       
-    return *this;
-}
-
 /**
  * @brief Sets the color of the shape
  * 

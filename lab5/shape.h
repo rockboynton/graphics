@@ -28,7 +28,7 @@ class Shape
          * 
          * @param from - shape to copy 
          */
-        Shape(const Shape& from);
+        Shape(const Shape& from) = default;
 
         /**
          * @brief Destroy the Shape object.
@@ -36,7 +36,7 @@ class Shape
          * Not needed for base Shape, but called when children are destructed
          * 
          */
-        virtual ~Shape();
+        virtual ~Shape() = default;
 
 
         /**
@@ -95,10 +95,10 @@ class Shape
          * @param rhs - shape which properties are copied
          * @return Shape& - reference to this to allow chaining
          */
-        Shape& operator=(const Shape& rhs);
+        virtual Shape& operator=(const Shape& rhs) = default;
         
-        unsigned int color; // 32 or 64 bit integer to store hex color
     private:
+        unsigned int color; // 32 or 64 bit integer to store hex color
 };
 
 #endif
