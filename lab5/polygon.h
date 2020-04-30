@@ -33,7 +33,6 @@ class Polygon: public Shape
 
         /**
          * @brief Destroy the Polygon object
-         * 
          */
         ~Polygon() = default;
 
@@ -50,7 +49,7 @@ class Polygon: public Shape
          * 
          * @return Shape* - pointer containing clone of this
          */
-        Shape* clone();
+        virtual std::unique_ptr<Shape> clone() const override;
 
         /**
          * @brief Print polygon properties to the output stream.

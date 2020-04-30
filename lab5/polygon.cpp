@@ -3,9 +3,6 @@
 
 /**
  * @brief Construct a new Polygon object
- * 
- * Construct the start and end coordinates of this line and set the color
- * See matrix::coordinate
  */
 Polygon::Polygon(unsigned int color): Shape(color){}
 
@@ -14,8 +11,17 @@ void Polygon::add_vertex(int x, int y)
     coordinates.push_back(matrix::coordinate(x, y));
 }
 
+/**
+ * @brief Draws the polygon
+ * 
+ * Draws a line from each vertex to the next in order that they were added
+ * Connects final vertex to the first vertex.
+ * 
+ * In the case of a line, it draws it twice (overlap)
+ */
 Polygon& Polygon::draw(GraphicsContext* gc)
 {
+    gc->setColor(color);
     auto n = coordinates.size();
     for (auto i = 0U; i < n; ++i) {
         int x0 = coordinates[i][0][0];
@@ -27,10 +33,9 @@ Polygon& Polygon::draw(GraphicsContext* gc)
     return *this;
 }
 
-Shape* Polygon::clone()
+std::unique_ptr<Shape> Polygon::clone() const
 {
-    // TODO
-    return this;
+    return std::make_unique<Polygon>(*this);
 }
 
 void Polygon::out(std::ostream& os)

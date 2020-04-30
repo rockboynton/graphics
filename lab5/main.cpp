@@ -13,8 +13,8 @@ int main(void)
 
 	// Run tests
 	Line line(50, 50, 200, 200, GraphicsContext::RED);
-	// gc->drawLine(50, 50, 200, 200);
-	// line.draw(gc);
+	gc->drawLine(50, 50, 200, 200);
+	line.draw(gc);
 
 	Line line2(80, 70, 160, 400, GraphicsContext::GREEN);
 	line2.draw(gc);
@@ -22,8 +22,8 @@ int main(void)
 	line2 = line;
 	line2.draw(gc);
 
-	// Triangle triangle(100, 100, 50, 300, 300, 300, GraphicsContext::RED);
-	// triangle.draw(gc);
+	Triangle triangle(100, 100, 50, 300, 300, 300, GraphicsContext::BLUE);
+	triangle.draw(gc);
 
 	sleep(3);
 	delete gc;

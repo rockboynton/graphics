@@ -3,6 +3,7 @@
 
 #include <iostream> // for std::ostream
 #include <vector>
+#include <memory>
 
 #include "gcontext.h"
 
@@ -83,7 +84,7 @@ class Shape
          */
         static void in(std::istream& in, std::vector<Shape*>& shapes);
 
-        virtual Shape* clone() = 0;
+        virtual std::unique_ptr<Shape> clone() const = 0;
 
         friend std::istream& operator>>(std::istream& in, Shape& shape);
 
