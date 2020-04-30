@@ -1,29 +1,23 @@
 #include "image.h"
 
-Image::Image()
-{
-    // TODO
-}
-
-Image::Image(const Image& from)
-{
-    // TODO
-}
-
-Image::~Image()
-{
-    // TODO
-}
-
 Image& Image::add(Shape* shape)
 {
-    // TODO
+    shapes.insert(shape->clone());
     return *this;
+}
+
+void Image::add(std::initializer_list<Shape*> shapes)
+{
+    for (auto& shape : shapes) {
+        (this->shapes).insert(shape->clone());
+    }
 }
 
 void Image::draw(GraphicsContext* gc)
 {
-    // TODO
+    for (auto& shape : shapes) {
+        shape->draw(gc);
+    }
 }
 
 void Image::in(std::istream& is)

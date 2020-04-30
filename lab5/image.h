@@ -2,7 +2,7 @@
 #define IMAGE_H
 
 #include <memory>
-#include <unordered_set>
+#include <set>
 
 #include "shape.h"
 
@@ -13,20 +13,30 @@ class Image
          * @brief Construct a new Image object
          * 
          */
-        Image();
+        Image() = default;
 
         /**
          * @brief Construct a new Image object from another image
          * 
+         * Performs deep copy by default
+         * 
          * @param from - Image to copy
          */
-        Image(const Image& from);
+        Image(const Image& from) = default;
 
         /**
          * @brief Destroy the Image object
          * 
          */
-        ~Image();
+        ~Image() = default;
+
+        /**
+         * @brief Assigns an image to contain the same shapes as another image
+         * 
+         * @param rhs - Image to assign
+         * @return Image& - reference to this to allow chaining
+         */
+        Image& operator=(const Image& rhs) = default;
 
         /**
          * @brief Add a shape to this image
@@ -34,6 +44,8 @@ class Image
          * @param shape - shape to be added
          * @return Image& - reference to this, to allow chaining
          */
+        void add(std::initializer_list<Shape*> shapes);
+
         Image& add(Shape* shape);
 
         /**
@@ -73,7 +85,7 @@ class Image
         void erase();
 
     private:
-        std::unordered_set<std::unique_ptr<Shape>> shapes;
+        std::set<std::unique_ptr<Shape>> shapes;
 };
 
 #endif
