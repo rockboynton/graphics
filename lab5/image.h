@@ -65,7 +65,7 @@ class Image
          * 
          * @param is - Input Stream reference (std::istream&)
          */
-        void in(std::istream& is);
+        void in(std::istream& in);
 
         /**
          * @brief Print image properties to the output stream
@@ -89,5 +89,6 @@ class Image
 };
 
 std::ostream& operator<<(std::ostream& os, const Image& rhs);
+std::istream& operator>>(std::istream& in, Image& rhs);
 
 #endif

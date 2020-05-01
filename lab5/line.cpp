@@ -42,5 +42,5 @@ std::ostream& operator<<(std::ostream& os, const Line& rhs)
 
 void Line::in(std::istream& is)
 {
-    // TODO
+    Polygon::in(is);
 }

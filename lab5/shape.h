@@ -60,15 +60,6 @@ class Shape
         virtual void out(std::ostream& os) const;
 
         /**
-         * @brief Construct a Shape object from input stream
-         * 
-         * Pure virtual function must be implemented by derived class.
-         * 
-         * @param is 
-         */
-        virtual void in(std::istream& is) = 0;
-
-        /**
          * @brief Read shape properties from an input stream.
          * 
          * Designed to be be used to read from a text file and construct shapes
@@ -77,10 +68,9 @@ class Shape
          * 
          * See definition for input format
          * 
-         * @param is - Input Stream reference (std::ostream&)
-         * @param shapes - vector of Shape* to populate
+         * @param in - Input Stream reference (std::ostream&)
          */
-        static void in(std::istream& in, std::vector<Shape*>& shapes);
+        virtual void in(std::istream& in);
 
         virtual std::shared_ptr<Shape> clone() const = 0;
 

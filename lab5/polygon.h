@@ -67,7 +67,7 @@ class Polygon: public Shape
          * 
          * @param is 
          */
-        void in(std::istream& is);
+        virtual void in(std::istream& is);
 
     protected:
         /**

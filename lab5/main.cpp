@@ -6,6 +6,7 @@
 
 #include <unistd.h>
 #include <iostream>
+#include <fstream>
 
 void test_lines_triangles_out(GraphicsContext* gc)
 {
@@ -39,10 +40,28 @@ void test_lines_triangles_out(GraphicsContext* gc)
 	image = image;
 	// image.erase();
 
-	std::cout << line << std::endl;
-	std::cout << triangle2 << std::endl;
+	// test output
+	line.out(std::cout);
+	std::ofstream fileout;
+	fileout.open("line_data.txt");
+	line.out(fileout);
+	fileout.close();
 
-	std::cout << image << std::endl;
+	// test input
+	Line line_test(0,0,0,0,0);
+	std::ifstream filein("line_data.txt");
+	line_test.in(filein);
+	filein.close();
+	std::ofstream fileout2;
+	fileout2.open("line_data2.txt");
+	line_test.out(fileout2);
+	fileout2.close();
+
+
+	// std::cout << line << std::endl;
+	// std::cout << triangle2 << std::endl;
+
+	// std::cout << image << std::endl;
 
 	sleep(3);
 }

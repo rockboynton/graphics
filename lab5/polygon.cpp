@@ -46,7 +46,7 @@ std::shared_ptr<Shape> Polygon::clone() const
  * Files will be read from input streams and written to output streams in the
  * following format:
  * 
- * <type (if any): > Polygon
+ * <type (if any): > Polygon <number of coordinates>
  * <vertex 1 x-coord>
  * <vertex 1 y-coord>
  * <vertex 1 z-coord>
@@ -66,7 +66,7 @@ std::shared_ptr<Shape> Polygon::clone() const
 
 void Polygon::out(std::ostream& os) const
 {
-    os << "Polygon" << '\n';
+    os << "Polygon " << coordinates.size() << '\n';
     std::copy(coordinates.begin(), coordinates.end(), std::ostream_iterator<matrix>(os, ""));
     os << "endPolygon" << std::endl;
     Shape::out(os);
@@ -80,5 +80,13 @@ std::ostream& operator<<(std::ostream& os, const Polygon& rhs)
 
 void Polygon::in(std::istream& is)
 {
-    // TODO
+    unsigned int size;
+    is >> size;
+    coordinates.clear();
+    for (auto i = 0U; i < size; ++i) {
+        coordinates.emplace_back(matrix::COORDINATE_ROWS, matrix::COORDINATE_COLS);
+        is >> coordinates[i];
+    }
+    is.ignore();
+    Shape::in(is); 
 }

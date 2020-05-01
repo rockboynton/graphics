@@ -1,5 +1,11 @@
 #include "image.h"
 
+#include "line.h"
+#include "triangle.h"
+#include "polygon.h"
+
+#include <sstream>
+
 Image& Image::add(Shape* shape)
 {
     shapes.insert(shape->clone());
@@ -37,9 +43,31 @@ void Image::draw(GraphicsContext* gc)
  * 
  */
 
-void Image::in(std::istream& is)
+void Image::in(std::istream& in)
 {
-    // TODO
+    std::string type;
+    while (in >> type)
+    {
+        std::shared_ptr<Shape> shape;
+        if (type == "Line:")
+        {
+            shape = std::make_shared<Line>(0,0,0,0,0);
+        }
+        else if (type == "Triangle:")
+        {
+            shape = std::make_shared<Triangle>(0,0,0,0,0,0,0);
+        }
+        else if (type == "Polygon")
+        {
+            shape = std::make_shared<Polygon>(0);
+        } else {
+            std::cerr << "Something went wrong" << std::endl;
+        }
+
+        std::cerr << "Shape exists" << std::endl;
+        in >> *shape;
+        shapes.insert(shape);
+    }
 }
 
 void Image::out(std::ostream& os) const
@@ -55,6 +83,12 @@ std::ostream& operator<<(std::ostream& os, const Image& rhs)
 {
     rhs.out(os);
     return os;
+}
+
+std::istream& operator>>(std::istream& in, Image& rhs)
+{
+    rhs.in(in);
+    return in;
 }
 
 void Image::erase()

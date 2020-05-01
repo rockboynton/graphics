@@ -44,6 +44,7 @@ class matrix
 		// class private variables
 		
 		friend std::ostream& operator<<(std::ostream& os, const matrix& rhs);
+		friend std::istream& operator>>(std::istream& in, const matrix& rhs);
 		
 		
 		// No default (no argument) constructor.  It doesn't really make
@@ -191,6 +192,7 @@ class matrix
 //  [ r0c0, r0c1, r0c2 ]]
 // would be appropriate.
 std::ostream& operator<<(std::ostream& os, const matrix& rhs);
+std::istream& operator>>(std::istream& in, const matrix& rhs);
  
 // We would normally have a corresponding >> operator, but
 // will defer that exercise that until a later assignment.

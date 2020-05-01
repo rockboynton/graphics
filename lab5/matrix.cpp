@@ -251,16 +251,34 @@ mrow matrix::operator[](unsigned int row) const
 // Global insertion and operator
 std::ostream& operator<<(std::ostream& os, const matrix& rhs)
 {
-    for (unsigned int i = 0; i < rhs.rows; i ++)
-    {
-        os << "[ ";
-        for (unsigned int j = 0; j < rhs.cols; j++)
-        {
-            os << rhs.the_matrix[i][j] << " ";
-        }
-        os << "]" << std::endl;
-    }
+	os << rhs.rows << " " << rhs.cols << '\n';
+	for (auto i = 0U; i < rhs.rows; i++)
+  	{
+		for (auto j = 0U; j < rhs.cols; j++)
+		{
+			os << rhs.the_matrix[i][j] << " ";
+		}
+  		os << '\n';
+  	}
 	return os;
+}
+
+std::istream& operator>>(std::istream& in, const matrix& rhs)
+{
+	unsigned int m, n;
+	in >> m >> n;
+
+	if ((rhs.rows != m) || (rhs.cols != n))
+	{
+		std::cout << "Matrix not correct size!\n";
+		exit(1);
+	}
+
+	for (auto i = 0U; i < m; i++)
+		for (auto j = 0U; j < m; j++)
+			in >> rhs.the_matrix[i][j];
+
+	return in;
 }
 
 // Global scalar multiplication

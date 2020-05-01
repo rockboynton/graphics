@@ -37,5 +37,5 @@ std::ostream& operator<<(std::ostream& os, const Triangle& rhs)
 
 void Triangle::in(std::istream& is)
 {
-    // TODO
+    Polygon::in(is);
 }
