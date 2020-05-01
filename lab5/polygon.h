@@ -49,7 +49,7 @@ class Polygon: public Shape
          * 
          * @return Shape* - pointer containing clone of this
          */
-        virtual std::unique_ptr<Shape> clone() const override;
+        virtual std::shared_ptr<Shape> clone() const;
 
         /**
          * @brief Print polygon properties to the output stream.

@@ -35,17 +35,41 @@ Polygon& Polygon::draw(GraphicsContext* gc)
     return *this;
 }
 
-std::unique_ptr<Shape> Polygon::clone() const
+std::shared_ptr<Shape> Polygon::clone() const
 {
-    return std::make_unique<Polygon>(*this);
+    return std::make_shared<Polygon>(*this);
 }
+
+/**
+ * @brief IO Formatting
+ * 
+ * Files will be read from input streams and written to output streams in the
+ * following format:
+ * 
+ * <type (if any): > Polygon
+ * <vertex 1 x-coord>
+ * <vertex 1 y-coord>
+ * <vertex 1 z-coord>
+ * <vertex 1 homogenous-coord>
+ * .
+ * .
+ * .
+ * <vertex n x-coord>
+ * <vertex n y-coord>
+ * <vertex n z-coord>
+ * <vertex n homogenous-coord>
+ * endPolygon
+ * Color (hex code): <hex color>
+ * endShape
+ * 
+ */
 
 void Polygon::out(std::ostream& os) const
 {
     os << "Polygon" << '\n';
-    Shape::out(os);
     std::copy(coordinates.begin(), coordinates.end(), std::ostream_iterator<matrix>(os, ""));
-    os << "end" << std::endl;
+    os << "endPolygon" << std::endl;
+    Shape::out(os);
 }
 
 std::ostream& operator<<(std::ostream& os, const Polygon& rhs)

@@ -82,7 +82,7 @@ class Shape
          */
         static void in(std::istream& in, std::vector<Shape*>& shapes);
 
-        virtual std::unique_ptr<Shape> clone() const = 0;
+        virtual std::shared_ptr<Shape> clone() const = 0;
 
         friend std::istream& operator>>(std::istream& in, Shape& shape);
 

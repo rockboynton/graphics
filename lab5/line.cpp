@@ -13,10 +13,20 @@ Line::Line(int x0, int y0, int x1, int y1, unsigned int color): Polygon(color)
     Polygon::add_vertex(x1, y1);
 }
 
-std::unique_ptr<Shape> Line::clone() const
+std::shared_ptr<Shape> Line::clone() const
 {
-    return std::make_unique<Line>(*this);
+    return std::make_shared<Line>(*this);
 }
+
+/**
+ * @brief IO Formatting
+ * 
+ * Files will be read from input streams and written to output streams in the
+ * same format as Polygon but the type specified of the first line of the input:
+ * 
+ * Line: Polygon
+ * <rest of polygon info>
+ */
 
 void Line::out(std::ostream& os) const
 {

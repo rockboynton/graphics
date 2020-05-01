@@ -8,10 +8,20 @@ Triangle::Triangle(int x0, int y0, int x1, int y1, int x2, int y2, unsigned int 
     Polygon::add_vertex(x2, y2);
 }
 
-std::unique_ptr<Shape> Triangle::clone() const
+std::shared_ptr<Shape> Triangle::clone() const
 {
-    return std::make_unique<Triangle>(*this);
+    return std::make_shared<Triangle>(*this);
 }
+
+/**
+ * @brief IO Formatting
+ * 
+ * Files will be read from input streams and written to output streams in the
+ * same format as Polygon but the type specified of the first line of the input:
+ * 
+ * Triangle: Polygon
+ * <rest of polygon info>
+ */
 
 void Triangle::out(std::ostream& os) const
 {

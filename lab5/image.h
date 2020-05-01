@@ -63,7 +63,7 @@ class Image
          * 
          * See definition for input format
          * 
-         * @param is - Input Stream reference (std::ostream&)
+         * @param is - Input Stream reference (std::istream&)
          */
         void in(std::istream& is);
 
@@ -76,7 +76,7 @@ class Image
          * 
          * @param os - Output Stream reference (std::ostream&)
          */
-        void out(std::ostream& os);
+        void out(std::ostream& os) const;
 
         /**
          * @brief Remove all the shapes from this image
@@ -85,7 +85,9 @@ class Image
         void erase();
 
     private:
-        std::set<std::unique_ptr<Shape>> shapes;
+        std::set<std::shared_ptr<Shape>> shapes;
 };
+
+std::ostream& operator<<(std::ostream& os, const Image& rhs);
 
 #endif

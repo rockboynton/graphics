@@ -26,7 +26,7 @@ class Line: public Polygon
          * 
          * @return Std::unique_ptr<Shape> - smart pointer containing clone of this
          */
-        virtual std::unique_ptr<Shape> clone() const override;
+        virtual std::shared_ptr<Shape> clone() const;
 
         /**
          * @brief Print line properties to the output stream.

@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <iostream>
 
-void test_lines_triangles(GraphicsContext* gc)
+void test_lines_triangles_out(GraphicsContext* gc)
 {
 	// Run tests
 	Line line(50, 50, 200, 200, GraphicsContext::RED);
@@ -30,9 +30,19 @@ void test_lines_triangles(GraphicsContext* gc)
 	Triangle triangle2(500, 125, 75, 275, 550, 300, GraphicsContext::BLUE);
 	image.add(&line3).add(&triangle2);
 	image.draw(gc);
+	sleep(2);
+	triangle2 = triangle;
+	image.draw(gc);
+
+
+	Image image2;
+	image = image;
+	// image.erase();
 
 	std::cout << line << std::endl;
 	std::cout << triangle2 << std::endl;
+
+	std::cout << image << std::endl;
 
 	sleep(3);
 }
@@ -41,7 +51,7 @@ int main(void)
 {
 	GraphicsContext* gc = new X11Context(800,600,GraphicsContext::BLACK);
 
-	test_lines_triangles(gc);
+	test_lines_triangles_out(gc);
 
 	delete gc;
  
