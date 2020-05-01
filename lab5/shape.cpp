@@ -38,8 +38,8 @@ std::ostream& operator<<(std::ostream& os, const Shape& rhs)
 
 void Shape::in(std::istream& in)
 {
-    in >> color;
-    in.ignore();
+    std::string ignore;
+    in >> color >> ignore;
 }
 
 std::istream& operator>>(std::istream& in, Shape& shape)

@@ -267,6 +267,7 @@ std::istream& operator>>(std::istream& in, const matrix& rhs)
 {
 	unsigned int m, n;
 	in >> m >> n;
+	std::cout << m << "x" << n << '\n';
 
 	if ((rhs.rows != m) || (rhs.cols != n))
 	{
@@ -275,9 +276,10 @@ std::istream& operator>>(std::istream& in, const matrix& rhs)
 	}
 
 	for (auto i = 0U; i < m; i++)
-		for (auto j = 0U; j < m; j++)
+		for (auto j = 0U; j < n; j++)
 			in >> rhs.the_matrix[i][j];
 
+	std::cout << rhs << std::endl;
 	return in;
 }
 

@@ -37,5 +37,7 @@ std::ostream& operator<<(std::ostream& os, const Triangle& rhs)
 
 void Triangle::in(std::istream& is)
 {
+    std::string ignore;
+    is >> ignore; // ignore "Polygon"
     Polygon::in(is);
 }

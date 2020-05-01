@@ -82,11 +82,13 @@ void Polygon::in(std::istream& is)
 {
     unsigned int size;
     is >> size;
+    std::cout << size << "\n";
     coordinates.clear();
     for (auto i = 0U; i < size; ++i) {
         coordinates.emplace_back(matrix::COORDINATE_ROWS, matrix::COORDINATE_COLS);
         is >> coordinates[i];
     }
-    is.ignore();
+    std::string ignore;
+    is >> ignore;
     Shape::in(is); 
 }

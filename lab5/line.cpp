@@ -42,5 +42,7 @@ std::ostream& operator<<(std::ostream& os, const Line& rhs)
 
 void Line::in(std::istream& is)
 {
+    std::string ignore;
+    is >> ignore; // ignore "Polygon"
     Polygon::in(is);
 }

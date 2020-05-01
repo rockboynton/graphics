@@ -46,8 +46,10 @@ void Image::draw(GraphicsContext* gc)
 void Image::in(std::istream& in)
 {
     std::string type;
+    in >> type; // Ignore header
     while (in >> type)
     {
+        std::cout << type << std::endl;
         std::shared_ptr<Shape> shape;
         if (type == "Line:")
         {
@@ -61,10 +63,8 @@ void Image::in(std::istream& in)
         {
             shape = std::make_shared<Polygon>(0);
         } else {
-            std::cerr << "Something went wrong" << std::endl;
+            break; // done reading shapes
         }
-
-        std::cerr << "Shape exists" << std::endl;
         in >> *shape;
         shapes.insert(shape);
     }

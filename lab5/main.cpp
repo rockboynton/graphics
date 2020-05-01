@@ -41,20 +41,20 @@ void test_lines_triangles_out(GraphicsContext* gc)
 	// image.erase();
 
 	// test output
-	line.out(std::cout);
+	image.out(std::cout);
 	std::ofstream fileout;
-	fileout.open("line_data.txt");
-	line.out(fileout);
+	fileout.open("image_data.txt");
+	image.out(fileout);
 	fileout.close();
 
 	// test input
-	Line line_test(0,0,0,0,0);
-	std::ifstream filein("line_data.txt");
-	line_test.in(filein);
+	Image image_test;
+	std::ifstream filein("image_data.txt");
+	image_test.in(filein);
 	filein.close();
 	std::ofstream fileout2;
-	fileout2.open("line_data2.txt");
-	line_test.out(fileout2);
+	fileout2.open("image_data2.txt");
+	image_test.out(fileout2);
 	fileout2.close();
 
 
