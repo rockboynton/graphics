@@ -57,8 +57,9 @@ class Shape
          * 
          * @param os - Output Stream reference (std::ostream&)
          */
-        virtual void out(std::ostream& os);
+        virtual void out(std::ostream& os) const;
 
+        friend std::ostream& operator<<(std::ostream& os, const Shape& rhs);
 
         /**
          * @brief Construct a Shape object from input stream
@@ -99,5 +100,7 @@ class Shape
     private:
         unsigned int color; // 32 or 64 bit integer to store hex color
 };
+
+std::ostream& operator<<(std::ostream& os, const Shape& rhs);
 
 #endif

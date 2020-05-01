@@ -45,6 +45,8 @@ class Line: public Polygon
          * @param is 
          */
         void in(std::istream& is);
+
+        
 };
 
 #endif

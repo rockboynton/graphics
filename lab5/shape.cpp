@@ -22,9 +22,15 @@ Shape& Shape::draw(GraphicsContext* gc)
 /**
  * @brief Puts this->color into os
  */
-void Shape::out(std::ostream& os)
+void Shape::out(std::ostream& os) const
 {
-    os << color;
+    os << color << '\n';
+}
+
+std::ostream& operator<<(std::ostream& os, const Shape& rhs)
+{
+    rhs.out(os);
+    return os;
 }
 
 /**

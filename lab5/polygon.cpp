@@ -1,5 +1,7 @@
 #include "polygon.h"
 
+#include <iterator> // for ostream_iterator
+
 
 /**
  * @brief Construct a new Polygon object
@@ -40,7 +42,10 @@ std::unique_ptr<Shape> Polygon::clone() const
 
 void Polygon::out(std::ostream& os)
 {
-    // TODO
+    os << "Polygon" << '\n';
+    Shape::out(os);
+    std::copy(coordinates.begin(), coordinates.end(), std::ostream_iterator<char>(os, "*"));
+    os << std::endl;
 }
 
 void Polygon::in(std::istream& is)

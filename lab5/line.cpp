@@ -20,7 +20,8 @@ std::unique_ptr<Shape> Line::clone() const
 
 void Line::out(std::ostream& os)
 {
-    // TODO
+    os << "Line: ";
+    Polygon::out(os);
 }
 
 void Line::in(std::istream& is)
