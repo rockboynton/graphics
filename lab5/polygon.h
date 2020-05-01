@@ -58,8 +58,7 @@ class Polygon: public Shape
          * 
          * @param os - Output Stream reference (std::ostream&)
          */
-        void out(std::ostream& os);
-
+        virtual void out(std::ostream& os) const;
 
         /**
          * @brief Construct a Polygon object from input stream
@@ -82,5 +81,7 @@ class Polygon: public Shape
     private:
         std::vector<matrix> coordinates; // holds {start, end}
 };
+
+std::ostream& operator<<(std::ostream& os, const Polygon& rhs);
 
 #endif

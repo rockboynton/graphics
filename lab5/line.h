@@ -35,7 +35,7 @@ class Line: public Polygon
          * 
          * @param os - Output Stream reference (std::ostream&)
          */
-        void out(std::ostream& os);
+        void out(std::ostream& os) const;
 
         /**
          * @brief Construct a Line object from input stream
@@ -45,8 +45,8 @@ class Line: public Polygon
          * @param is 
          */
         void in(std::istream& is);
-
-        
 };
+
+std::ostream& operator<<(std::ostream& os, const Line& rhs);
 
 #endif

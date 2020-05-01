@@ -40,12 +40,18 @@ std::unique_ptr<Shape> Polygon::clone() const
     return std::make_unique<Polygon>(*this);
 }
 
-void Polygon::out(std::ostream& os)
+void Polygon::out(std::ostream& os) const
 {
     os << "Polygon" << '\n';
     Shape::out(os);
-    std::copy(coordinates.begin(), coordinates.end(), std::ostream_iterator<char>(os, "*"));
-    os << std::endl;
+    std::copy(coordinates.begin(), coordinates.end(), std::ostream_iterator<matrix>(os, ""));
+    os << "end" << std::endl;
+}
+
+std::ostream& operator<<(std::ostream& os, const Polygon& rhs)
+{
+    rhs.out(os);
+    return os;
 }
 
 void Polygon::in(std::istream& is)

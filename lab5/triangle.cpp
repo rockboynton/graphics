@@ -13,9 +13,16 @@ std::unique_ptr<Shape> Triangle::clone() const
     return std::make_unique<Triangle>(*this);
 }
 
-void Triangle::out(std::ostream& os)
+void Triangle::out(std::ostream& os) const
 {
-    // TODO
+    os << "Triangle: ";
+    Polygon::out(os);
+}
+
+std::ostream& operator<<(std::ostream& os, const Triangle& rhs)
+{
+    rhs.out(os);
+    return os;
 }
 
 void Triangle::in(std::istream& is)

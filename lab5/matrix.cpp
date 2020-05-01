@@ -4,7 +4,7 @@
 #include <functional>
 
 const int matrix::COORDINATE_ROWS = 4;
-const int matrix::COORDINATE_COLS = 4;
+const int matrix::COORDINATE_COLS = 1;
 
 mrow::mrow(unsigned int len, double* matrix_row):len(len),matrix_row(matrix_row){}
 

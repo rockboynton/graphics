@@ -6,11 +6,9 @@
 
 #include <unistd.h>
 #include <iostream>
- 
-int main(void)
-{
-	GraphicsContext* gc = new X11Context(800,600,GraphicsContext::BLACK);
 
+void test_lines_triangles(GraphicsContext* gc)
+{
 	// Run tests
 	Line line(50, 50, 200, 200, GraphicsContext::RED);
 	gc->drawLine(50, 50, 200, 200);
@@ -33,7 +31,18 @@ int main(void)
 	image.add(&line3).add(&triangle2);
 	image.draw(gc);
 
+	std::cout << line << std::endl;
+	std::cout << triangle2 << std::endl;
+
 	sleep(3);
+}
+ 
+int main(void)
+{
+	GraphicsContext* gc = new X11Context(800,600,GraphicsContext::BLACK);
+
+	test_lines_triangles(gc);
+
 	delete gc;
  
 	return 0;

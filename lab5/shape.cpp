@@ -24,7 +24,7 @@ Shape& Shape::draw(GraphicsContext* gc)
  */
 void Shape::out(std::ostream& os) const
 {
-    os << color << '\n';
+    os << "Color (hex code): " << color << '\n';
 }
 
 std::ostream& operator<<(std::ostream& os, const Shape& rhs)

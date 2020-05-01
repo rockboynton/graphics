@@ -37,7 +37,7 @@ class Triangle: public Polygon
          * 
          * @param os - Output Stream reference (std::ostream&)
          */
-        void out(std::ostream& os);
+        void out(std::ostream& os) const;
 
         /**
          * @brief Construct a Triangle object from input stream
@@ -48,5 +48,7 @@ class Triangle: public Polygon
          */
         void in(std::istream& is);
 };
+
+std::ostream& operator<<(std::ostream& os, const Triangle& rhs);
 
 #endif

@@ -18,10 +18,16 @@ std::unique_ptr<Shape> Line::clone() const
     return std::make_unique<Line>(*this);
 }
 
-void Line::out(std::ostream& os)
+void Line::out(std::ostream& os) const
 {
     os << "Line: ";
     Polygon::out(os);
+}
+
+std::ostream& operator<<(std::ostream& os, const Line& rhs)
+{
+    rhs.out(os);
+    return os;
 }
 
 void Line::in(std::istream& is)

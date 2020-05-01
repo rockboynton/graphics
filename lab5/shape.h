@@ -59,8 +59,6 @@ class Shape
          */
         virtual void out(std::ostream& os) const;
 
-        friend std::ostream& operator<<(std::ostream& os, const Shape& rhs);
-
         /**
          * @brief Construct a Shape object from input stream
          * 
