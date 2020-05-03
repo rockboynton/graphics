@@ -14,7 +14,7 @@ Shape::Shape(unsigned int color): color(color) {/*nothing else to do*/}
  * Leaves rest of the assignment process to derived class
  * 
  */
-Shape& Shape::draw(GraphicsContext* gc)
+const Shape& Shape::draw(GraphicsContext* gc) const
 {
     gc->setColor(this->color);
     return *this;
@@ -35,10 +35,12 @@ std::ostream& operator<<(std::ostream& os, const Shape& rhs)
     return os;
 }
 
-
+/**
+ * @brief Reads a color and puts it in this->color
+ */
 void Shape::in(std::istream& in)
 {
-    std::string ignore;
+    std::string ignore; // to ignore endShape
     in >> color >> ignore;
 }
 

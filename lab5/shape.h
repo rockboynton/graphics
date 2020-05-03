@@ -1,9 +1,9 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 
-#include <iostream> // for std::ostream
+#include <iostream> // for std::ostream, std::istream
 #include <vector>
-#include <memory>
+#include <memory> // for shared_ptr
 
 #include "gcontext.h"
 
@@ -14,10 +14,10 @@
 class Shape
 {
     public:
+        /* No default constructor provided */
+
         /**
          * @brief Construct a new Shape object.
-         * 
-         * No default constructor provided
          * 
          * @param color - color of the shape as a hex code
          */
@@ -28,15 +28,14 @@ class Shape
          * 
          * @param from - shape to copy 
          */
-        Shape(const Shape& from) = default;
+        Shape(const Shape& from) = default; // color is copied by default
 
         /**
          * @brief Destroy the Shape object.
          * 
          * Not needed for base Shape, but called when children are destructed
-         * 
          */
-        virtual ~Shape() = default;
+        virtual ~Shape() = default; // color is deleted off the stack by default
 
         /**
          * @brief Draw shape in Graphics context.
@@ -46,7 +45,7 @@ class Shape
          * @param gc - GraphicsContext to draw in
          * @return Shape& - reference to this to allow chaining
          */
-        virtual Shape& draw(GraphicsContext* gc); // ? Should this be protected?
+        virtual const Shape& draw(GraphicsContext* gc) const;
 
         /**
          * @brief Print shape properties to the output stream.
@@ -72,9 +71,12 @@ class Shape
          */
         virtual void in(std::istream& in);
 
+        /**
+         * @brief Used to create a shape (smart) pointer from a child object
+         * 
+         * @return std::shared_ptr<Shape> 
+         */
         virtual std::shared_ptr<Shape> clone() const = 0;
-
-        friend std::istream& operator>>(std::istream& in, Shape& shape);
 
     protected:
         /**
@@ -90,5 +92,6 @@ class Shape
 };
 
 std::ostream& operator<<(std::ostream& os, const Shape& rhs);
+std::istream& operator>>(std::istream& in, Shape& shape);
 
 #endif
