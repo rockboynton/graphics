@@ -38,6 +38,8 @@ class Line: public Polygon
          * 
          * See definition for input format
          * 
+         * Note: Must only be called from an image, not directly
+         * 
          * @param is 
          */
         void in(std::istream& is);
