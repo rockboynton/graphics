@@ -112,37 +112,6 @@ void GraphicsContext::setCirclePoints(int x0, int y0, int x, int y)
 }
 
 /**
- * @brief Draws a circle using a midpoint circle algorithm
- * 
- * @param x0 - center x
- * @param y0 - center y
- * @param radius - radius of the circle
- */
-void GraphicsContext::midpointCircle(int x0, int y0, unsigned int radius) 
-{
-	int x = radius;
-    int y = 0;
-    int err = 1 - radius;
- 
-    while (x >= y)
-    {
-		setCirclePoints(x0, y0, x, y);
-	
-		if (err <= 0)
-		{
-			y += 1;
-			err += 2*y + 1;
-		}
-	
-		if (err > 0)
-		{
-			x -= 1;
-			err -= 2*x + 1;
-		}
-    }
-}
-
-/**
  * @brief Draws a circle using a modified bresenham line algorithm for circles
  * 
  * @param x0 - center x
