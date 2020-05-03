@@ -1,12 +1,17 @@
 #ifndef POLYGON_H
 #define POLYGON_H
 
-#include <memory>
-#include <array>
-
 #include "shape.h"
 #include "matrix.h"
 
+
+/**
+ * @brief Class to represent a polygon object
+ * 
+ * A polygon is a sequence of vertices connected by lines, 
+ * with the last vertex connecting to the first one.
+ * 
+ */
 class Polygon: public Shape
 {
     public:
@@ -21,7 +26,7 @@ class Polygon: public Shape
          * 
          * @param from - polygon to copy 
          */
-        Polygon(const Polygon& from) = default;
+        Polygon(const Polygon& from) = default; 
 
         /**
          * @brief Create a new polygon just like rhs. 
@@ -42,7 +47,7 @@ class Polygon: public Shape
          * @param gc - GraphicsContext to draw in
          * @return Shape& - reference to this to allow chaining
          */
-        Polygon& draw(GraphicsContext* gc);
+        const Polygon& draw(GraphicsContext* gc) const;
 
         /**
          * @brief Copy this polygon object and return a Shape pointer to it
@@ -61,7 +66,7 @@ class Polygon: public Shape
         virtual void out(std::ostream& os) const;
 
         /**
-         * @brief Construct a Polygon object from input stream
+         * @brief Construct this Polygon object from input stream
          * 
          * See definition for input format
          * 
@@ -69,19 +74,19 @@ class Polygon: public Shape
          */
         virtual void in(std::istream& is);
 
-    protected:
         /**
          * @brief Adds a vertext to this polygon
          * 
          * @param x 
          * @param y 
          */
-        void add_vertex(int x, int y);
+        virtual void add_vertex(int x, int y);
 
     private:
-        std::vector<matrix> coordinates; // holds {start, end}
+        std::vector<matrix> coordinates; // holds {start, ..., end}
 };
 
 std::ostream& operator<<(std::ostream& os, const Polygon& rhs);
+std::istream& operator>>(std::istream& in, Polygon& rhs);
 
 #endif

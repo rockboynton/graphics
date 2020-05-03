@@ -8,6 +8,12 @@
  */
 Polygon::Polygon(unsigned int color): Shape(color){}
 
+/**
+ * @brief Adds a vertex as the last vertex of the polygon
+ * 
+ * @param x - x-coord
+ * @param y - y-coord
+ */
 void Polygon::add_vertex(int x, int y) 
 {
     coordinates.push_back(matrix::coordinate(x, y));
@@ -21,7 +27,7 @@ void Polygon::add_vertex(int x, int y)
  * 
  * In the case of a line, it draws it twice (overlap)
  */
-Polygon& Polygon::draw(GraphicsContext* gc)
+const Polygon& Polygon::draw(GraphicsContext* gc) const
 {
     Shape::draw(gc);
     auto n = coordinates.size();
@@ -91,4 +97,10 @@ void Polygon::in(std::istream& is)
     std::string ignore;
     is >> ignore;
     Shape::in(is); 
+}
+
+std::istream& operator>>(std::istream& in, Polygon& rhs)
+{
+    rhs.in(in);
+    return in;
 }
