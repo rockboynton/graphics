@@ -1,11 +1,7 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-#include <memory>
-#include <array>
-
 #include "polygon.h"
-#include "matrix.h"
 
 class Triangle: public Polygon
 {
@@ -47,6 +43,9 @@ class Triangle: public Polygon
          * @param is 
          */
         void in(std::istream& is);
+
+    private:
+        using Polygon::add_vertex; // not allowed to add vertex to a triangle
 };
 
 std::ostream& operator<<(std::ostream& os, const Triangle& rhs);
