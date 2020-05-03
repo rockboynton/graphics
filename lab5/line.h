@@ -1,11 +1,7 @@
 #ifndef LINE_H
 #define LINE_H
 
-#include <memory>
-#include <array>
-
 #include "polygon.h"
-#include "matrix.h"
 
 class Line: public Polygon
 {
@@ -26,7 +22,7 @@ class Line: public Polygon
          * 
          * @return Std::unique_ptr<Shape> - smart pointer containing clone of this
          */
-        virtual std::shared_ptr<Shape> clone() const;
+        std::shared_ptr<Shape> clone() const;
 
         /**
          * @brief Print line properties to the output stream.
@@ -45,6 +41,9 @@ class Line: public Polygon
          * @param is 
          */
         void in(std::istream& is);
+
+    private:
+        using Polygon::add_vertex; // not allowed to add vertex to a line
 };
 
 std::ostream& operator<<(std::ostream& os, const Line& rhs);
