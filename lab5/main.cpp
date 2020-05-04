@@ -38,7 +38,6 @@ void test_lines_triangles_out(GraphicsContext* gc)
 
 	Image image2;
 	image = image;
-	// image.erase();
 
 	// test output
 	image.out(std::cout);
@@ -59,11 +58,6 @@ void test_lines_triangles_out(GraphicsContext* gc)
 
 	Polygon poly(GraphicsContext::YELLOW);
 	poly.add_vertex(7, 7);
-
-	// std::cout << line << std::endl;
-	// std::cout << triangle2 << std::endl;
-
-	// std::cout << image << std::endl;
 
 	sleep(3);
 }
