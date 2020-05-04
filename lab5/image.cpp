@@ -4,22 +4,36 @@
 #include "triangle.h"
 #include "polygon.h"
 
-#include <sstream>
-
+/**
+ * @brief Adds a shape by calling shape's clone() method
+ * 
+ * Clone method will handle creating a Shape pointer from 
+ * whatever derived object the shape is
+ * 
+ * @param shape - the shape to add
+ * @return Image& - reference to this to allow chaining
+ */
 Image& Image::add(Shape* shape)
 {
-    shapes.insert(shape->clone());
+    shapes.emplace_back(shape->clone());
     return *this;
 }
 
-void Image::add(std::initializer_list<Shape*> shapes)
+void Image::add(std::initializer_list<Shape*> shape_list)
 {
-    for (auto& shape : shapes) {
-        (this->shapes).insert(shape->clone());
+    for (auto& shape : shape_list) {
+        shapes.emplace_back(shape->clone());
     }
 }
 
-void Image::draw(GraphicsContext* gc)
+/**
+ * @brief Iterates over all shapes in this imagedraws them
+ * 
+ * Calls the shape's draw() method
+ * 
+ * @param gc 
+ */
+void Image::draw(GraphicsContext* gc) const
 {
     for (auto& shape : shapes) {
         shape->draw(gc);
@@ -66,7 +80,7 @@ void Image::in(std::istream& in)
             break; // done reading shapes
         }
         in >> *shape;
-        shapes.insert(shape);
+        shapes.emplace_back(shape);
     }
 }
 

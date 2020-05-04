@@ -1,10 +1,8 @@
 #ifndef IMAGE_H
 #define IMAGE_H
 
-#include <memory>
-#include <set>
-
 #include "shape.h"
+
 
 class Image
 {
@@ -39,13 +37,19 @@ class Image
         Image& operator=(const Image& rhs) = default;
 
         /**
+         * @brief Add several shapes to this image
+         * 
+         * @param shapes - shapes to be added
+         * @return Image& - reference to this, to allow chaining
+         */
+        void add(std::initializer_list<Shape*> shape_list);
+
+        /**
          * @brief Add a shape to this image
          * 
          * @param shape - shape to be added
          * @return Image& - reference to this, to allow chaining
          */
-        void add(std::initializer_list<Shape*> shapes);
-
         Image& add(Shape* shape);
 
         /**
@@ -53,7 +57,7 @@ class Image
          * 
          * @param gc - GraphicsContext to draw in
          */
-        void draw(GraphicsContext* gc);
+        void draw(GraphicsContext* gc) const;
 
         /**
          * @brief Read image properties from an input stream
@@ -62,6 +66,8 @@ class Image
          * It will add all shapes read in to this image.
          * 
          * See definition for input format
+         * 
+         * Note: Incorrect input will lead to undefined behavior
          * 
          * @param is - Input Stream reference (std::istream&)
          */
@@ -85,7 +91,9 @@ class Image
         void erase();
 
     private:
-        std::set<std::shared_ptr<Shape>> shapes;
+        // using a vector because order matters (overlapping shapes will have
+        // last shape's color on top) and fast iteration is important for drawing
+        std::vector<std::shared_ptr<Shape>> shapes;
 };
 
 std::ostream& operator<<(std::ostream& os, const Image& rhs);
