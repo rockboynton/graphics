@@ -9,6 +9,7 @@
 #include "x11context.h"
 #include "drawbase.h"
 #include <iostream>
+#include <string>
 
 /**
  * The only constructor provided.  Allows size of window and background
