@@ -19,6 +19,12 @@ Image& Image::add(Shape* shape)
     return *this;
 }
 
+Image& Image::add(std::shared_ptr<Shape> shape)
+{
+    shapes.emplace_back(shape->clone());
+    return *this;
+}
+
 void Image::add(std::initializer_list<Shape*> shape_list)
 {
     for (auto& shape : shape_list) {

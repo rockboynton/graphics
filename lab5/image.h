@@ -52,6 +52,8 @@ class Image
          */
         Image& add(Shape* shape);
 
+        Image& add(std::shared_ptr<Shape> shape);
+
         /**
          * @brief Draws all shapes in this image
          * 

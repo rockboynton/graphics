@@ -3,6 +3,8 @@
 
 #include "drawbase.h"
 #include "image.h"
+#include "line.h"
+#include "triangle.h"
 
 // forward reference
 class GraphicsContext;
@@ -24,29 +26,19 @@ class MyDrawing : public DrawingBase
         // We will only support one "remembered" line 
         // In an actual implementation, we would also have one of our "image" 
         // objects here to store all of our drawn shapes.
-        int x0; int y0;
-        int x1; int y1;
+        std::vector<std::pair<int, int>> points;
+        unsigned int current_pos = 0; 
         bool dragging; // flag to know if we are dragging
         Image image;
-        Shape* current_shape;
+        std::shared_ptr<Shape> current_shape;
 
-        static enum States {
-            POINT, LINE, TRIANGLE_L1, TRIANGLE_L2, POLYGON_L1, POLYGON_LN, MAX_STATES
+        enum States {
+            POINT, LINE, TRIANGLE_L1, TRIANGLE_L2, POLYGON_L1, POLYGON_LN
             } state;
             
-        static enum Events {
-            MOUSE_UP, MOUSE_DOWN, MOUSE_MOVE, MAX_EVENTS
-            } event;
-        
-        // states are rows, events are columns
-        void (*const state_table [MAX_STATES][MAX_EVENTS]) (void) = {
-            {}, /* POINT */
-            {}, 
-            {}, 
-            {}, 
-            {}, 
-            {}, 
-        };
         unsigned int color;
+
+        void xor_line(GraphicsContext* gc, int x, int y);
+        void copy_line(GraphicsContext* gc, int x, int y);
 };
 #endif
