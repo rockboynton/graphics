@@ -1,5 +1,6 @@
 #include "mydrawing.h"
 #include "gcontext.h"
+#include "polygon.h"
 
 // Constructor
 MyDrawing::MyDrawing()
@@ -89,6 +90,14 @@ void MyDrawing::keyDown(GraphicsContext* gc, unsigned int keycode)
             break;
         case 'o':
             state = POLYGON;
+            break;
+        case 'c':
+            if (state == POLYGON) { // close polygon
+                gc->setColor(color);
+                gc->drawLine(x0, y0, x1, y1);
+                ((Polygon*) current_shape)->add_vertex(x1, y1);
+                image.add(current_shape);
+            }
             break;
         case 's':
             save_image();

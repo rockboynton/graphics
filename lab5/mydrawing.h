@@ -28,7 +28,25 @@ class MyDrawing : public DrawingBase
         int x1; int y1;
         bool dragging; // flag to know if we are dragging
         Image image;
-        enum States{POINT, LINE, TRIANGLE, POLYGON} state;
+        Shape* current_shape;
+
+        static enum States {
+            POINT, LINE, TRIANGLE_L1, TRIANGLE_L2, POLYGON_L1, POLYGON_LN, MAX_STATES
+            } state;
+            
+        static enum Events {
+            MOUSE_UP, MOUSE_DOWN, MOUSE_MOVE, MAX_EVENTS
+            } event;
+        
+        // states are rows, events are columns
+        void (*const state_table [MAX_STATES][MAX_EVENTS]) (void) = {
+            {}, /* POINT */
+            {}, 
+            {}, 
+            {}, 
+            {}, 
+            {}, 
+        };
         unsigned int color;
 };
 #endif
