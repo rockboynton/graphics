@@ -72,19 +72,18 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
         case POLYGON_L1:
             points.front().first = points.back().first = x;
             points.front().second = points.back().second = y;
-            xor_line(gc, x, y);
+            gc->setMode(GraphicsContext::MODE_XOR);
+            gc->drawLine(x,y,x,y);
             dragging = true;
             break;      
         case TRIANGLE_L2:
-            complete_polygon(gc);
+            print_points();
+            complete_polygon(gc, points.back().first, points.back().second);
             image.add(std::make_shared<Triangle>(points[0].first, points[0].second, 
                                                  points[1].first, points[1].second, 
                                                  points[2].first, points[2].second, 
                                                  color));
-            
-            points.clear();
-            points.emplace_back(0, 0); points.emplace_back(0, 0);
-            state = TRIANGLE_L1;
+            points.pop_back(); 
             dragging = false; 
         case POLYGON_LN:
             points.emplace_back(x, y);
@@ -97,6 +96,7 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
 
 void MyDrawing::mouseButtonUp(GraphicsContext* gc, unsigned int button, int x, int y)
 {
+    if (!dragging) return;
     switch (state) {
         case LINE:
             copy_line(gc, x, y);
@@ -106,25 +106,25 @@ void MyDrawing::mouseButtonUp(GraphicsContext* gc, unsigned int button, int x, i
             dragging = false;
             break;
         case TRIANGLE_L1:
-            copy_line(gc, x, y);
+            gc->drawLine(points.back().first,points.back().second,
+                 points.end()[-2].first, points.end()[-2].second);
             points.emplace_back(x, y);
-            state = TRIANGLE_L2;
             dragging = true;
+            state = TRIANGLE_L2;
             break;
+        case POLYGON_L1:
+            gc->drawLine(points.back().first,points.back().second,
+                 points.end()[-2].first, points.end()[-2].second);
+            points.emplace_back(x, y);
+            dragging = true;
+            state = POLYGON_LN;
+            break; 
         case POLYGON_LN:
             dragging = true;
             break;
         case TRIANGLE_L2:
-            // xor_line(gc, x, y);
             dragging = false;
             state = TRIANGLE_L1;
-            break;
-        case POLYGON_L1:
-            points[0].first = points[1].first = x;
-            points[0].second = points[1].second = y;
-            xor_line(gc, x, y);
-            dragging = true;
-            state = POLYGON_LN;
             break;
         case POINT:
             break;
@@ -134,21 +134,16 @@ void MyDrawing::mouseButtonUp(GraphicsContext* gc, unsigned int button, int x, i
 
 void MyDrawing::mouseMove(GraphicsContext* gc, int x, int y)
 {
+    if (!dragging) return;
     switch (state) {
         case LINE:
-            if (dragging) xor_line(gc, x, y);
-            break;
         case TRIANGLE_L1:
-            if (dragging) xor_line(gc, x, y);
-            break;
-        case POLYGON_LN:
-            if (dragging) rubberband_poly(gc, x, y);
+        case POLYGON_L1:
+            xor_line(gc, x, y);
             break;
         case TRIANGLE_L2:
-            if (dragging) rubberband_poly(gc, x, y);
-            break;
-        case POLYGON_L1:
-            if (dragging) xor_line(gc, x, y);
+        case POLYGON_LN:
+            rubberband_poly(gc, x, y);
             break;
         case POINT:
             break;
@@ -185,7 +180,7 @@ void MyDrawing::keyDown(GraphicsContext* gc, unsigned int keycode)
             points.emplace_back(0, 0); points.emplace_back(0, 0);
             dragging = false;
             if (state == POLYGON_LN) state = POLYGON_L1;
-            if (state == TRIANGLE_L2) state = TRIANGLE_L2;
+            if (state == TRIANGLE_L2) state = TRIANGLE_L1;
             break;
         case 'p':
             state = POINT;
@@ -207,7 +202,7 @@ void MyDrawing::keyDown(GraphicsContext* gc, unsigned int keycode)
             break;
         case 'c':
             if (state == POLYGON_LN) { // close polygon
-                complete_polygon(gc);
+                complete_polygon(gc, points.back().first, points.back().second);
                 auto poly = std::make_shared<Polygon>(color);
                 for (auto& point : points) {
                     poly->add_vertex(point.first, point.second);
@@ -275,7 +270,7 @@ void MyDrawing::load_image(GraphicsContext* gc)
     // TODO
 }
 
-void MyDrawing::complete_polygon(GraphicsContext* gc)
+void MyDrawing::complete_polygon(GraphicsContext* gc, int x, int y)
 {
     gc->setMode(GraphicsContext::MODE_XOR);
     gc->setColor(color);
@@ -286,6 +281,10 @@ void MyDrawing::complete_polygon(GraphicsContext* gc)
     gc->drawLine(points.back().first,points.back().second,
                  points[0].first, points[0].second);
 
+    // update 
+    points.back().first = x;
+    points.back().second = y;
+
     // go back to COPY mode
     gc->setMode(GraphicsContext::MODE_NORMAL);
     
@@ -294,4 +293,13 @@ void MyDrawing::complete_polygon(GraphicsContext* gc)
                  points.end()[-2].first, points.end()[-2].second);
     gc->drawLine(points.back().first,points.back().second,
                  points[0].first, points[0].second);
+}
+
+void MyDrawing::print_points()
+{
+    std::cout << points.size();
+    for (auto& point : points) {
+        std::cout << "(" << point.first << "," << point.second << ")";
+    }
+    std::cout << std::endl;
 }

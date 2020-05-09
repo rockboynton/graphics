@@ -46,6 +46,8 @@ class MyDrawing : public DrawingBase
          * 
          * @param gc 
          */
-        void complete_polygon(GraphicsContext* gc);
+        void complete_polygon(GraphicsContext* gc, int x, int y);
+
+        void print_points();
 };
 #endif
