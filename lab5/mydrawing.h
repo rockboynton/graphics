@@ -26,8 +26,7 @@ class MyDrawing : public DrawingBase
         // We will only support one "remembered" line 
         // In an actual implementation, we would also have one of our "image" 
         // objects here to store all of our drawn shapes.
-        std::vector<std::pair<int, int>> points;
-        unsigned int current_pos = 0; 
+        std::vector<std::pair<int, int>> points; // at least 2 points in buffer
         bool dragging; // flag to know if we are dragging
         Image image;
         std::shared_ptr<Shape> current_shape;
@@ -40,5 +39,15 @@ class MyDrawing : public DrawingBase
 
         void xor_line(GraphicsContext* gc, int x, int y);
         void copy_line(GraphicsContext* gc, int x, int y);
+
+        /**
+         * @brief Completes a polygon 
+         * 
+         * Draws line from last point to second to last point and
+         * draws line from last point to first point.
+         * 
+         * @param gc 
+         */
+        void complete_polygon(GraphicsContext* gc);
 };
 #endif
