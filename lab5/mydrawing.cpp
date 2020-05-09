@@ -83,8 +83,10 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
                                                  points[1].first, points[1].second, 
                                                  points[2].first, points[2].second, 
                                                  color));
-            points.pop_back(); 
+            points.clear(); 
+            points.emplace_back(0, 0); points.emplace_back(0, 0);
             dragging = false; 
+            break;
         case POLYGON_LN:
             points.emplace_back(x, y);
             copy_line(gc, x, y);
@@ -96,7 +98,6 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
 
 void MyDrawing::mouseButtonUp(GraphicsContext* gc, unsigned int button, int x, int y)
 {
-    if (!dragging) return;
     switch (state) {
         case LINE:
             copy_line(gc, x, y);
@@ -123,7 +124,6 @@ void MyDrawing::mouseButtonUp(GraphicsContext* gc, unsigned int button, int x, i
             dragging = true;
             break;
         case TRIANGLE_L2:
-            dragging = false;
             state = TRIANGLE_L1;
             break;
         case POINT:
