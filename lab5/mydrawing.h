@@ -39,6 +39,7 @@ class MyDrawing : public DrawingBase
 
         void xor_line(GraphicsContext* gc, int x, int y);
         void copy_line(GraphicsContext* gc, int x, int y);
+        void rubberband_poly(GraphicsContext* gc, int x, int y);
 
         /**
          * @brief Completes a polygon 
