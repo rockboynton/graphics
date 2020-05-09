@@ -23,9 +23,6 @@ class MyDrawing : public DrawingBase
     private: 
         void save_image();
         void load_image(GraphicsContext* gc);
-        // We will only support one "remembered" line 
-        // In an actual implementation, we would also have one of our "image" 
-        // objects here to store all of our drawn shapes.
         std::vector<std::pair<int, int>> points; // at least 2 points in buffer
         bool dragging; // flag to know if we are dragging
         Image image;

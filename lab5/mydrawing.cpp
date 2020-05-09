@@ -23,14 +23,16 @@ void MyDrawing::paint(GraphicsContext* gc)
 
 void MyDrawing::xor_line(GraphicsContext* gc, int x, int y)
 {
-    // mouse moved - "undraw" old line, then re-draw in new position
     gc->setMode(GraphicsContext::MODE_XOR);
     gc->setColor(color);
+
+    // mouse moved - "undraw" old line, then re-draw in new position
     gc->drawLine(points.back().first,points.back().second,
                  points.end()[-2].first, points.end()[-2].second);
     // update
     points.back().first = x;
     points.back().second = y;
+
     // new line drawn
     gc->drawLine(points.back().first,points.back().second,
                  points.end()[-2].first, points.end()[-2].second);
@@ -38,16 +40,20 @@ void MyDrawing::xor_line(GraphicsContext* gc, int x, int y)
 
 void MyDrawing::copy_line(GraphicsContext* gc, int x, int y)
 {
-    // undraw old line
     gc->setMode(GraphicsContext::MODE_XOR);
     gc->setColor(color);
+
+    // undraw old line
     gc->drawLine(points.back().first,points.back().second,
                  points.end()[-2].first, points.end()[-2].second);
+
     // update 
     points.back().first = x;
     points.back().second = y;
+
     // go back to COPY mode
     gc->setMode(GraphicsContext::MODE_NORMAL);
+
     // new line drawn in copy mode
     gc->drawLine(points.back().first,points.back().second,
                  points.end()[-2].first, points.end()[-2].second);
@@ -59,42 +65,31 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
             points.front().first = points.back().first = x;
             points.front().second = points.back().second = y;
             copy_line(gc, x, y);
-            image.add(std::make_shared<Line>(points.front().first, points.front().second,
-                                             points.back().first, points.back().second, 
-                                             color));
+            image.add(std::make_shared<Line>(x, y, x, y, color));
             break;
         case TRIANGLE_L1:
-            points[0].first = points[1].first = x;
-            points[0].second = points[1].second = y;
-            gc->setMode(GraphicsContext::MODE_XOR);
-            gc->setColor(color);
-            gc->drawLine(points.back().first,points.back().second,
-                        points.end()[-2].first, points.end()[-2].second);
-            dragging = true;
-            break;
         case LINE:
-            points[0].first = points[1].first = x;
-            points[0].second = points[1].second = y;
+        case POLYGON_L1:
+            points.front().first = points.back().first = x;
+            points.front().second = points.back().second = y;
             xor_line(gc, x, y);
             dragging = true;
             break;      
         case TRIANGLE_L2:
-            // points.emplace_back(x, y);
             complete_polygon(gc);
             image.add(std::make_shared<Triangle>(points[0].first, points[0].second, 
                                                  points[1].first, points[1].second, 
                                                  points[2].first, points[2].second, 
                                                  color));
-            dragging = false; 
+            
             points.clear();
             points.emplace_back(0, 0); points.emplace_back(0, 0);
+            state = TRIANGLE_L1;
+            dragging = false; 
         case POLYGON_LN:
             points.emplace_back(x, y);
             copy_line(gc, x, y);
             dragging = true;
-            break;
-        case POLYGON_L1:
-            xor_line(gc, x, y);
             break;
     }
     return;
@@ -282,11 +277,14 @@ void MyDrawing::load_image(GraphicsContext* gc)
 
 void MyDrawing::complete_polygon(GraphicsContext* gc)
 {
-    // undraw old lines
     gc->setMode(GraphicsContext::MODE_XOR);
     gc->setColor(color);
+
+    // undraw old lines
     gc->drawLine(points.back().first,points.back().second,
                  points.end()[-2].first, points.end()[-2].second);
+    gc->drawLine(points.back().first,points.back().second,
+                 points[0].first, points[0].second);
 
     // go back to COPY mode
     gc->setMode(GraphicsContext::MODE_NORMAL);
