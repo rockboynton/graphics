@@ -19,18 +19,16 @@ class MyDrawing : public DrawingBase
         virtual void mouseButtonUp(GraphicsContext* gc, unsigned int button, int x, int y); 
         virtual void mouseMove(GraphicsContext* gc, int x, int y); 
         virtual void keyDown(GraphicsContext* gc, unsigned int keycode);
-        virtual void keyUp(GraphicsContext* gc, unsigned int keycode);
     private: 
         void save_image();
         void load_image(GraphicsContext* gc);
         std::vector<std::pair<int, int>> points; // at least 2 points in buffer
         bool dragging; // flag to know if we are dragging
         Image image;
-        std::shared_ptr<Shape> current_shape;
 
         enum States {
             POINT, LINE, TRIANGLE_L1, TRIANGLE_L2, POLYGON_L1, POLYGON_LN
-            } state;
+        } state;
             
         unsigned int color;
 
@@ -47,7 +45,5 @@ class MyDrawing : public DrawingBase
          * @param gc 
          */
         void complete_polygon(GraphicsContext* gc, int x, int y);
-
-        void print_points();
 };
 #endif

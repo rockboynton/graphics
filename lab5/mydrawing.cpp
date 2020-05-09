@@ -2,6 +2,8 @@
 #include "gcontext.h"
 #include "polygon.h"
 
+#include <fstream>
+
 // Constructor
 MyDrawing::MyDrawing()
 {
@@ -79,10 +81,6 @@ void MyDrawing::copy_line(GraphicsContext* gc, int x, int y)
     gc->drawLine(points.back().first,points.back().second,
                  points.end()[-2].first, points.end()[-2].second);
 
-    // update 
-    // points.back().first = x;
-    // points.back().second = y;
-
     // go back to COPY mode
     gc->setMode(GraphicsContext::MODE_NORMAL);
 
@@ -109,7 +107,6 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
             dragging = true;
             break;      
         case TRIANGLE_L2:
-            print_points();
             complete_polygon(gc, points.back().first, points.back().second);
             image.add(std::make_shared<Triangle>(points[0].first, points[0].second, 
                                                  points[1].first, points[1].second, 
@@ -296,21 +293,27 @@ void MyDrawing::keyDown(GraphicsContext* gc, unsigned int keycode)
     }
 }
 
-void MyDrawing::keyUp(GraphicsContext* gc, unsigned int keycode)
-{
-    
-}
-
 void MyDrawing::save_image()
 {
-    // TODO
+    std::ofstream fout;
+    fout.open("image.txt");
+    image.out(fout);
+    std::cout << "Image saved in image.txt" << std::endl;
+    fout.close();
 }
 
 void MyDrawing::load_image(GraphicsContext* gc)
 {
     image.erase();
     gc->clear();
-    // TODO
+    std::ifstream fin("image.txt");
+    if (fin){
+        image.in(fin);
+        gc->setMode(GraphicsContext::MODE_NORMAL);
+        image.draw(gc);
+        std::cout << "Image loaded from image.txt" << std::endl;
+    } else std::cout << "image.txt not in working directory" << std::endl;
+    fin.close();
 }
 
 void MyDrawing::complete_polygon(GraphicsContext* gc, int x, int y)
@@ -331,18 +334,9 @@ void MyDrawing::complete_polygon(GraphicsContext* gc, int x, int y)
     // go back to COPY mode
     gc->setMode(GraphicsContext::MODE_NORMAL);
     
-    // new line drawn in copy mode
+    // new lines drawn in copy mode
     gc->drawLine(points.back().first,points.back().second,
                  points.end()[-2].first, points.end()[-2].second);
     gc->drawLine(points.back().first,points.back().second,
                  points[0].first, points[0].second);
-}
-
-void MyDrawing::print_points()
-{
-    std::cout << points.size();
-    for (auto& point : points) {
-        std::cout << "(" << point.first << "," << point.second << ")";
-    }
-    std::cout << std::endl;
 }
