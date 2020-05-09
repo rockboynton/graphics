@@ -10,8 +10,40 @@ MyDrawing::MyDrawing()
     color = GraphicsContext::WHITE;
     state = LINE;
     dragging = false;
-    // TODO print instructions
 
+    // print instructions
+    std::cout << "Basic drawing program instructions:" << std::endl;
+    std::cout << "Select color using numbers:" << std::endl;
+    std::cout << "    1 - RED" << std::endl;
+    std::cout << "    2 - YELLOW" << std::endl;
+    std::cout << "    3 - GREEN" << std::endl;
+    std::cout << "    4 - BLUE" << std::endl;
+    std::cout << "    5 - CYAN" << std::endl;
+    std::cout << "    6 - MAGENTA" << std::endl;
+    std::cout << "    7 - BLACK" << std::endl;
+    std::cout << "    8 - WHITE" << std::endl;
+    std::cout << "    9 - GRAY" << std::endl;
+    std::cout << "Use the following commands to enter a draw mode:" << std::endl;
+    std::cout << "    l - line drawing" << std::endl;
+    std::cout << "        Start line by clicking and dragging" << std::endl;
+    std::cout << "        Release to complete line" << std::endl;
+    std::cout << "    p - point drawing" << std::endl;
+    std::cout << "        Click to draw point" << std::endl;
+    std::cout << "    t - triangle drawing" << std::endl;
+    std::cout << "        Start triangle by clicking and dragging" << std::endl;
+    std::cout << "        Release to select second point" << std::endl;
+    std::cout << "        Click again to complete triangle" << std::endl;
+    std::cout << "    o - polygon drawing" << std::endl;
+    std::cout << "        Start polygon by clicking and dragging" << std::endl;
+    std::cout << "        Release to select second point" << std::endl;
+    std::cout << "        Click again to select each other point" << std::endl;
+    std::cout << "        Press 'c' to complete the polygon" << std::endl;
+    std::cout << "File IO:" << std::endl;
+    std::cout << "    d - load image from image.txt" << std::endl;
+    std::cout << "    s - save image to image.txt" << std::endl;
+    std::cout << "Additional commands:" << std::endl;
+    std::cout << "    x - clear screen / delete image" << std::endl;
+    std::cout << "    esc - stop drawing shape" << std::endl;
     return;
 }
 
@@ -48,8 +80,8 @@ void MyDrawing::copy_line(GraphicsContext* gc, int x, int y)
                  points.end()[-2].first, points.end()[-2].second);
 
     // update 
-    points.back().first = x;
-    points.back().second = y;
+    // points.back().first = x;
+    // points.back().second = y;
 
     // go back to COPY mode
     gc->setMode(GraphicsContext::MODE_NORMAL);
@@ -173,6 +205,17 @@ void MyDrawing::rubberband_poly(GraphicsContext* gc, int x, int y)
 void MyDrawing::keyDown(GraphicsContext* gc, unsigned int keycode)
 {
     switch(keycode) {
+        case 65307: // esc key undraws last line and exits drawing mode
+            gc->setMode(GraphicsContext::MODE_XOR);
+            gc->setColor(color);
+            gc->drawLine(points.back().first,points.back().second,
+                         points.end()[-2].first, points.end()[-2].second);
+            points.clear();
+            points.emplace_back(0, 0); points.emplace_back(0, 0);
+            dragging = false;
+            if (state == POLYGON_LN) state = POLYGON_L1;
+            if (state == TRIANGLE_L2) state = TRIANGLE_L1;
+            break;
         case 'x':
             image.erase();
             gc->clear();
