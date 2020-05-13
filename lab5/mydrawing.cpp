@@ -264,7 +264,9 @@ void MyDrawing::keyDown(GraphicsContext* gc, unsigned int keycode)
                 complete_polygon(gc, points.back().first, points.back().second);
                 auto poly = std::make_shared<Polygon>(color);
                 for (auto& point : points) {
-                    poly->add_vertex(point.first, point.second);
+                    auto model = vc.get_model_coords(std::make_unique<matrix>(
+                            matrix::coordinate(point.first, point.second)));
+                    poly->add_vertex((*model)[0][0], (*model)[1][0]);
                 }
                 image.add(poly);
                 points.clear();
