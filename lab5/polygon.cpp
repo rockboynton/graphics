@@ -32,10 +32,12 @@ const Polygon& Polygon::draw(GraphicsContext* gc, ViewContext* vc) const
     Shape::draw(gc, vc);
     auto n = coordinates.size();
     for (auto i = 0U; i < n; ++i) {
-        int x0 = coordinates[i][0][0];
-        int y0 = coordinates[i][1][0];
-        int x1 = coordinates[(i+1) % n][0][0];
-        int y1 = coordinates[(i+1) % n][1][0];
+        auto view_coord0 = vc->get_device_coords(std::make_unique<matrix>(coordinates[i]));
+        auto view_coord1 = vc->get_device_coords(std::make_unique<matrix>(coordinates[(i+1) % n]));
+        int x0 = (*view_coord0)[0][0];
+        int y0 = (*view_coord0)[1][0];
+        int x1 = (*view_coord1)[0][0];
+        int y1 = (*view_coord1)[1][0];
         gc->drawLine(x0, y0, x1, y1);
     }
     return *this;
