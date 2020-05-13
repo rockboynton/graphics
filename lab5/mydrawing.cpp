@@ -281,6 +281,16 @@ void MyDrawing::keyDown(GraphicsContext* gc, unsigned int keycode)
         case 'd':
             load_image(gc);
             break;
+        case 'm':
+            int dx, dy;
+            std::cout << "dx: ";
+            std::cin >> dx;
+            std::cout << "dy: ";
+            std::cin >> dy;
+            gc->clear();
+            vc.translate(dx, dy);
+            paint(gc);
+            break;
         case '1':
             color = GraphicsContext::RED;
             break;
