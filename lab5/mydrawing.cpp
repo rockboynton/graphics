@@ -97,8 +97,9 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
             points.front().second = points.back().second = y;
             copy_line(gc, x, y);
             auto model = vc.get_model_coords(std::make_unique<matrix>(matrix::coordinate(x, y)));
-            // TODO
-            image.add(std::make_shared<Line>(x, y, x, y, color));
+            image.add(std::make_shared<Line>((*model)[0][0], (*model)[1][0], 
+                                             (*model)[0][0], (*model)[1][0], color));
+            // image.add(std::make_shared<Line>(x, y, x, y, color));
             break;
         }
         case TRIANGLE_L1:
