@@ -98,8 +98,8 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
             copy_line(gc, x, y);
             auto model = vc.get_model_coords(std::make_unique<matrix>(matrix::coordinate(x, y)));
             image.add(std::make_shared<Line>((*model)[0][0], (*model)[1][0], 
-                                             (*model)[0][0], (*model)[1][0], color));
-            // image.add(std::make_shared<Line>(x, y, x, y, color));
+                                             (*model)[0][0], (*model)[1][0], 
+                                             color));
             break;
         }
         case TRIANGLE_L1:
@@ -112,15 +112,23 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
             dragging = true;
             break;      
         case TRIANGLE_L2:
+        {
             complete_polygon(gc, points.back().first, points.back().second);
-            image.add(std::make_shared<Triangle>(points[0].first, points[0].second, 
-                                                 points[1].first, points[1].second, 
-                                                 points[2].first, points[2].second, 
+            auto model0 = vc.get_model_coords(std::make_unique<matrix>(
+                    matrix::coordinate(points[0].first, points[0].second)));
+            auto model1 = vc.get_model_coords(std::make_unique<matrix>(
+                    matrix::coordinate(points[1].first, points[1].second)));
+            auto model2 = vc.get_model_coords(std::make_unique<matrix>(
+                    matrix::coordinate(points[2].first, points[2].second)));
+            image.add(std::make_shared<Triangle>((*model0)[0][0], (*model0)[1][0],
+                                                 (*model1)[0][0], (*model1)[1][0], 
+                                                 (*model2)[0][0], (*model2)[1][0], 
                                                  color));
             points.clear(); 
             points.emplace_back(0, 0); points.emplace_back(0, 0);
             dragging = false; 
             break;
+        }
         case POLYGON_LN:
             points.emplace_back(x, y);
             copy_line(gc, x, y);

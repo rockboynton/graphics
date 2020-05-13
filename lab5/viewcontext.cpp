@@ -20,8 +20,6 @@ std::unique_ptr<matrix> ViewContext::get_device_coords(const std::unique_ptr<mat
 
 std::unique_ptr<matrix> ViewContext::get_model_coords(const std::unique_ptr<matrix> device_coords) const
 {
-    std::cout << "device->model: " << d2m << std::endl;
-    std::cout << "model: " << d2m * (*device_coords) << std::endl;
     return std::make_unique<matrix>(d2m * (*device_coords));
 }
 
