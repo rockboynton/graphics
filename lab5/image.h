@@ -2,6 +2,7 @@
 #define IMAGE_H
 
 #include "shape.h"
+#include "viewcontext.h"
 
 
 class Image
@@ -58,8 +59,9 @@ class Image
          * @brief Draws all shapes in this image
          * 
          * @param gc - GraphicsContext to draw in
+         * @param vc - The view context to use to convert from model->device coords
          */
-        void draw(GraphicsContext* gc) const;
+        void draw(GraphicsContext* gc, ViewContext* vc) const;
 
         /**
          * @brief Read image properties from an input stream

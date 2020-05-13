@@ -6,6 +6,7 @@
 #include <memory> // for shared_ptr
 
 #include "gcontext.h"
+#include "viewcontext.h"
 
 /**
  * @brief Abstract shape base class
@@ -45,7 +46,7 @@ class Shape
          * @param gc - GraphicsContext to draw in
          * @return Shape& - reference to this to allow chaining
          */
-        virtual const Shape& draw(GraphicsContext* gc) const;
+        virtual const Shape& draw(GraphicsContext* gc, ViewContext* vc) const;
 
         /**
          * @brief Print shape properties to the output stream.

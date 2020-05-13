@@ -14,7 +14,7 @@ Shape::Shape(unsigned int color): color(color) {/*nothing else to do*/}
  * Leaves rest of the assignment process to derived class
  * 
  */
-const Shape& Shape::draw(GraphicsContext* gc) const
+const Shape& Shape::draw(GraphicsContext* gc, ViewContext* vc) const
 {
     gc->setColor(this->color);
     return *this;

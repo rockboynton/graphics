@@ -3,6 +3,7 @@
 
 #include "shape.h"
 #include "matrix.h"
+#include "viewcontext.h"
 
 
 /**
@@ -47,7 +48,7 @@ class Polygon: public Shape
          * @param gc - GraphicsContext to draw in
          * @return Shape& - reference to this to allow chaining
          */
-        const Polygon& draw(GraphicsContext* gc) const;
+        const Polygon& draw(GraphicsContext* gc, ViewContext* vc) const;
 
         /**
          * @brief Copy this polygon object and return a Shape pointer to it

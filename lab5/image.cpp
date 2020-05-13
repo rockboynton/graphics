@@ -39,10 +39,10 @@ void Image::add(std::initializer_list<Shape*> shape_list)
  * 
  * @param gc 
  */
-void Image::draw(GraphicsContext* gc) const
+void Image::draw(GraphicsContext* gc, ViewContext* vc) const
 {
     for (auto& shape : shapes) {
-        shape->draw(gc);
+        shape->draw(gc, vc);
     }
 }
 

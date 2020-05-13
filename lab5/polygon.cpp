@@ -27,9 +27,9 @@ void Polygon::add_vertex(int x, int y)
  * 
  * In the case of a line, it draws it twice (overlap)
  */
-const Polygon& Polygon::draw(GraphicsContext* gc) const
+const Polygon& Polygon::draw(GraphicsContext* gc, ViewContext* vc) const
 {
-    Shape::draw(gc);
+    Shape::draw(gc, vc);
     auto n = coordinates.size();
     for (auto i = 0U; i < n; ++i) {
         int x0 = coordinates[i][0][0];
