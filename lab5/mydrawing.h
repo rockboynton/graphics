@@ -2,6 +2,7 @@
 #define MYDRAWING_H
 
 #include "drawbase.h"
+#include "viewcontext.h"
 #include "image.h"
 #include "line.h"
 #include "triangle.h"
@@ -12,7 +13,7 @@ class GraphicsContext;
 class MyDrawing : public DrawingBase
 {
     public:
-        MyDrawing(); 
+        MyDrawing(int dx, int dy); 
         // we will override just these 
         virtual void paint(GraphicsContext* gc); 
         virtual void mouseButtonDown(GraphicsContext* gc, unsigned int button, int x, int y);
@@ -25,6 +26,7 @@ class MyDrawing : public DrawingBase
         std::vector<std::pair<int, int>> points; // at least 2 points in buffer
         bool dragging; // flag to know if we are dragging
         Image image;
+        ViewContext vc;
 
         enum States {
             POINT, LINE, TRIANGLE_L1, TRIANGLE_L2, POLYGON_L1, POLYGON_LN

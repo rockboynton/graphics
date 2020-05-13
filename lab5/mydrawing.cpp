@@ -5,7 +5,7 @@
 #include <fstream>
 
 // Constructor
-MyDrawing::MyDrawing()
+MyDrawing::MyDrawing(int dx, int dy) : vc(dx, dy)
 {
     // keep at least 2 points in buffer
     points.emplace_back(0, 0); points.emplace_back(0, 0);
