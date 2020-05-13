@@ -1,5 +1,18 @@
 #include "viewcontext.h"
 
+ViewContext::ViewContext(int dx, int dy) : m2d(4, 4), d2m(4, 4)
+{
+    // make model->device
+    matrix translation = matrix::translation(dx / 2, dy / 2);
+    matrix flip = matrix::scale(1, -1);
+    m2d = translation * flip;
+
+    // make device->model
+    translation = matrix::translation(-dx / 2, -dy / 2);
+    flip = matrix::scale(1, -1);
+    m2d = flip * translation;
+}
+
 std::unique_ptr<matrix> ViewContext::get_device_coords(matrix* model_coords) const
 {
     // TODO
