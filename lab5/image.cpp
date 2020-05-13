@@ -69,7 +69,6 @@ void Image::in(std::istream& in)
     in >> type; // Ignore header
     while (in >> type)
     {
-        std::cout << type << std::endl;
         std::shared_ptr<Shape> shape;
         if (type == "Line:")
         {
