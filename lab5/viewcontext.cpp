@@ -13,13 +13,13 @@ ViewContext::ViewContext(int dx, int dy) : m2d(4, 4), d2m(4, 4)
     m2d = flip * translation;
 }
 
-std::unique_ptr<matrix> ViewContext::get_device_coords(matrix* model_coords) const
+std::unique_ptr<matrix> ViewContext::get_device_coords(const std::unique_ptr<matrix> model_coords) const
 {
     // TODO
     return std::make_unique<matrix>(m2d);
 }
 
-std::unique_ptr<matrix> ViewContext::get_model_coords(matrix* device_coords) const
+std::unique_ptr<matrix> ViewContext::get_model_coords(const std::unique_ptr<matrix> device_coords) const
 {
     // TODO
     return std::make_unique<matrix>(d2m);

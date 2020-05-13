@@ -51,7 +51,7 @@ MyDrawing::MyDrawing(int dx, int dy) : vc(dx, dy)
 
 void MyDrawing::paint(GraphicsContext* gc)
 {
-    image.draw(gc);
+    image.draw(gc, &vc);
     return;
 }
 
@@ -92,11 +92,15 @@ void MyDrawing::copy_line(GraphicsContext* gc, int x, int y)
 void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x, int y) {
     switch (state) {
         case POINT:
+        {
             points.front().first = points.back().first = x;
             points.front().second = points.back().second = y;
             copy_line(gc, x, y);
+            auto model = vc.get_model_coords(std::make_unique<matrix>(matrix::coordinate(x, y)));
+            // TODO
             image.add(std::make_shared<Line>(x, y, x, y, color));
             break;
+        }
         case TRIANGLE_L1:
         case LINE:
         case POLYGON_L1:
@@ -310,7 +314,7 @@ void MyDrawing::load_image(GraphicsContext* gc)
     if (fin){
         image.in(fin);
         gc->setMode(GraphicsContext::MODE_NORMAL);
-        image.draw(gc);
+        image.draw(gc, &vc);
         std::cout << "Image loaded from image.txt" << std::endl;
     } else std::cout << "image.txt not in working directory" << std::endl;
     fin.close();
