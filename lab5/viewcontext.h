@@ -28,8 +28,8 @@ class ViewContext
         std::unique_ptr<matrix> get_device_coords(const std::unique_ptr<matrix> model_coords) const;
         std::unique_ptr<matrix> get_model_coords(const std::unique_ptr<matrix> device_coords) const;
 
-        void set_device_coords(matrix* model_coords);
-        void set_model_coords(matrix* device_coords);
+        void translate(int dx, int dy);
+        void scale(int scale_x, int scale_y);
 };
 
 #endif

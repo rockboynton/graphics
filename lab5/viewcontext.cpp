@@ -23,12 +23,20 @@ std::unique_ptr<matrix> ViewContext::get_model_coords(const std::unique_ptr<matr
     return std::make_unique<matrix>(d2m * (*device_coords));
 }
 
-void ViewContext::set_device_coords(matrix* model_coords)
+void ViewContext::translate(int dx, int dy)
 {
-    // TODO
+    // update model->device
+    m2d = matrix::translation(dx, dy) * m2d;
+
+    // update device->model
+    d2m = d2m * matrix::translation(-dx, -dy);
 }
 
-void ViewContext::set_model_coords(matrix* device_coords)
+void ViewContext::scale(int scale_x, int scale_y)
 {
-    // TODO
+    // update model->device
+    m2d = matrix::scale(scale_x, scale_y) * m2d;
+
+    // update device->model
+    d2m = d2m * matrix::scale(-scale_x, -scale_y);
 }
