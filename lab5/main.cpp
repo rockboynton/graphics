@@ -16,7 +16,7 @@ int main(void)
 	gc->setColor(GraphicsContext::GREEN); // set default to green
 
 	// make a drawing
-	MyDrawing md;
+	MyDrawing md(gc->getWindowWidth(), gc->getWindowHeight());
 
 	// start event loop - this function will return when X is clicked on window
 	gc->runLoop(&md);
