@@ -89,6 +89,10 @@ class matrix
 		//
 		static matrix identity(unsigned int size);
 
+		static matrix translation(int dx, int dy);
+		static matrix rotation(int theta);
+		static matrix scale(int x, int y);
+
 		/**
 		 * @brief Creates a coordinate matrix/vector 
 		 * 

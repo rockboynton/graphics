@@ -146,6 +146,24 @@ matrix matrix::identity(unsigned int size)
 	return I;
 }
 
+matrix matrix::translation(int dx, int dy)
+{
+	matrix translation = matrix::identity(4);
+	translation[0][3] = dx;
+    translation[1][3] = dy;
+	return translation;
+}
+
+matrix matrix::scale(int x, int y)
+{
+	matrix scale = matrix::identity(4);
+	scale[0][0] = x;
+	scale[1][1] = y;
+	return scale;
+}
+
+
+
 matrix matrix::coordinate(int x0, int y0)
 {
 	matrix I(COORDINATE_ROWS, COORDINATE_COLS);
