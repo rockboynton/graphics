@@ -142,12 +142,18 @@ void MyDrawing::mouseButtonUp(GraphicsContext* gc, unsigned int button, int x, i
 {
     switch (state) {
         case LINE:
+        {
             copy_line(gc, x, y);
-            image.add(std::make_shared<Line>(points.front().first, points.front().second,
-                                             points.back().first, points.back().second, 
+            auto model0 = vc.get_model_coords(std::make_unique<matrix>(
+                    matrix::coordinate(points[0].first, points[0].second)));
+            auto model1 = vc.get_model_coords(std::make_unique<matrix>(
+                    matrix::coordinate(points[1].first, points[1].second)));
+            image.add(std::make_shared<Line>((*model0)[0][0], (*model0)[1][0],
+                                             (*model1)[0][0], (*model1)[1][0], 
                                              color));
             dragging = false;
             break;
+        }
         case TRIANGLE_L1:
             gc->drawLine(points.back().first,points.back().second,
                  points.end()[-2].first, points.end()[-2].second);
