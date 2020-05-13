@@ -29,7 +29,7 @@ class MyDrawing : public DrawingBase
         ViewContext vc;
 
         enum States {
-            POINT, LINE, TRIANGLE_L1, TRIANGLE_L2, POLYGON_L1, POLYGON_LN
+            POINT, LINE, TRIANGLE_L1, TRIANGLE_L2, POLYGON_L1, POLYGON_LN, TRANSLATING, SCALING
         } state;
             
         unsigned int color;

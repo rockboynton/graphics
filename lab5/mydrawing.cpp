@@ -134,6 +134,11 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
             copy_line(gc, x, y);
             dragging = true;
             break;
+        case TRANSLATING:
+            points.front().first = points.back().first = x;
+            points.front().second = points.back().second = y;
+            dragging = true;
+            break;
     }
     return;
 }
@@ -176,6 +181,9 @@ void MyDrawing::mouseButtonUp(GraphicsContext* gc, unsigned int button, int x, i
             break;
         case POINT:
             break;
+        case TRANSLATING:
+            dragging = false;
+            break;
     }
     return;
 }
@@ -194,6 +202,15 @@ void MyDrawing::mouseMove(GraphicsContext* gc, int x, int y)
             rubberband_poly(gc, x, y);
             break;
         case POINT:
+            break;
+        case TRANSLATING:
+            points.back().first = x;
+            points.back().second = y;
+            vc.translate(points[1].first - points[0].first, points[1].second - points[0].second);
+            gc->clear();
+            paint(gc);
+            points.front().first = x;
+            points.front().second = y;
             break;
     }
     return;
@@ -282,15 +299,11 @@ void MyDrawing::keyDown(GraphicsContext* gc, unsigned int keycode)
             load_image(gc);
             break;
         case 'm':
-            int dx, dy;
-            std::cout << "dx: ";
-            std::cin >> dx;
-            std::cout << "dy: ";
-            std::cin >> dy;
-            gc->clear();
-            vc.translate(dx, dy);
-            paint(gc);
+            state = TRANSLATING;
             break;
+        case 'z':
+            state = SCALING;
+            break;  
         case '1':
             color = GraphicsContext::RED;
             break;
