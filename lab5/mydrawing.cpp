@@ -135,6 +135,7 @@ void MyDrawing::mouseButtonDown(GraphicsContext* gc, unsigned int button, int x,
             dragging = true;
             break;
         case TRANSLATING:
+        case SCALING:
             points.front().first = points.back().first = x;
             points.front().second = points.back().second = y;
             dragging = true;
@@ -182,6 +183,7 @@ void MyDrawing::mouseButtonUp(GraphicsContext* gc, unsigned int button, int x, i
         case POINT:
             break;
         case TRANSLATING:
+        case SCALING:
             dragging = false;
             break;
     }
@@ -206,7 +208,20 @@ void MyDrawing::mouseMove(GraphicsContext* gc, int x, int y)
         case TRANSLATING:
             points.back().first = x;
             points.back().second = y;
-            vc.translate(points[1].first - points[0].first, points[1].second - points[0].second);
+            vc.translate(points[1].first - points[0].first, -(points[1].second - points[0].second));
+            gc->clear();
+            paint(gc);
+            points.front().first = x;
+            points.front().second = y;
+            break;
+        case SCALING:
+            points.back().first = x;
+            points.back().second = y;
+            int dx = points[1].first - points[0].first;
+            int dy = -(points[1].second - points[0].second);
+            double scale_x = dx > 0 ? (dx + 100) / 100.0 : 100.0 / (100 - dx);
+            double scale_y = dy > 0 ? (dy + 100) / 100.0 : 100.0 / (100 - dy);
+            vc.scale(scale_x, scale_y);
             gc->clear();
             paint(gc);
             points.front().first = x;

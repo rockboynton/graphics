@@ -26,17 +26,17 @@ std::unique_ptr<matrix> ViewContext::get_model_coords(const std::unique_ptr<matr
 void ViewContext::translate(int dx, int dy)
 {
     // update model->device
-    m2d = matrix::translation(dx, dy) * m2d;
+    m2d = m2d * matrix::translation(dx, dy);
 
     // update device->model
-    d2m = d2m * matrix::translation(-dx, -dy);
+    d2m = matrix::translation(-dx, -dy) * d2m;
 }
 
-void ViewContext::scale(int scale_x, int scale_y)
+void ViewContext::scale(double scale_x, double scale_y)
 {
     // update model->device
-    m2d = matrix::scale(scale_x, scale_y) * m2d;
+    m2d = m2d * matrix::scale(scale_x, scale_y);
 
     // update device->model
-    d2m = d2m * matrix::scale(-scale_x, -scale_y);
+    d2m = matrix::scale(-scale_x, -scale_y) * d2m;
 }

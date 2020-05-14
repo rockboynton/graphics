@@ -154,7 +154,7 @@ matrix matrix::translation(int dx, int dy)
 	return translation;
 }
 
-matrix matrix::scale(int x, int y)
+matrix matrix::scale(double x, double y)
 {
 	matrix scale = matrix::identity(4);
 	scale[0][0] = x;
