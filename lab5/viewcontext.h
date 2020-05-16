@@ -25,6 +25,7 @@ class ViewContext
          */
         ViewContext(int dx, int dy);
 
+        
         std::unique_ptr<matrix> get_device_coords(const std::unique_ptr<matrix> model_coords) const;
         std::unique_ptr<matrix> get_model_coords(const std::unique_ptr<matrix> device_coords) const;
 

@@ -40,12 +40,25 @@ MyDrawing::MyDrawing(int dx, int dy) : vc(dx, dy)
     std::cout << "        Release to select second point" << std::endl;
     std::cout << "        Click again to select each other point" << std::endl;
     std::cout << "        Press 'c' to complete the polygon" << std::endl;
+    std::cout << "Transformations:" << std::endl;
+    std::cout << "    m - move around the image (pan/translate)" << std::endl;
+    std::cout << "        Click then drag to start panning" << std::endl;
+    std::cout << "        Realease to end translation" << std::endl;
+    std::cout << "    z - zoom on the image (scale)" << std::endl;
+    std::cout << "        Click then drag to scaling" << std::endl;
+    std::cout << "        right - widen image" << std::endl;
+    std::cout << "        left - narrow image" << std::endl;
+    std::cout << "        up - lengthen image" << std::endl;
+    std::cout << "        down - squish image" << std::endl;
+    std::cout << "        diagonal up/right - zoom in" << std::endl;
+    std::cout << "        diagonal down/left - zoom out" << std::endl;
     std::cout << "File IO:" << std::endl;
     std::cout << "    d - load image from image.txt" << std::endl;
     std::cout << "    s - save image to image.txt" << std::endl;
     std::cout << "Additional commands:" << std::endl;
     std::cout << "    x - clear screen / delete image" << std::endl;
     std::cout << "    esc - stop drawing shape" << std::endl;
+
     return;
 }
 
